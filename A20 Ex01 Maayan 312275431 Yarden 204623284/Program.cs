@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FacebookApp
+namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
     public class Program
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FacebookApp
+﻿namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
     partial class FindPlaceForm
     {

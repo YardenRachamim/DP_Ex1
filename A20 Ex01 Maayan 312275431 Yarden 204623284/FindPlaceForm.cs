@@ -12,7 +12,7 @@ using System.Xml;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 
-namespace FacebookApp
+namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
     public partial class FindPlaceForm : Form
     {
@@ -63,7 +63,7 @@ namespace FacebookApp
 
         private void moveFriendToOtherList(ListBox i_ListBoxFrom, ListBox i_ListBoxTo)
         {
-            if(i_ListBoxFrom.SelectedItem == null)
+            if (i_ListBoxFrom.SelectedItem == null)
             {
                 return; //Nothing was selected
             }
@@ -75,7 +75,7 @@ namespace FacebookApp
             }
 
             i_ListBoxFrom.Items.Remove(selectedFriend.Name);
-            if(i_ListBoxTo.Name == "listBoxNotSelected")
+            if (i_ListBoxTo.Name == "listBoxNotSelected")
             {
                 if (isContains(selectedFriend.Name, textBoxSearch.Text))
                 {
@@ -93,7 +93,7 @@ namespace FacebookApp
             User foundUser = null;
             foreach (User user in r_MainForm.Friends)
             {
-                if(user.Name == i_UserNameToFind)
+                if (user.Name == i_UserNameToFind)
                 {
                     foundUser = user;
                 }
@@ -101,11 +101,11 @@ namespace FacebookApp
 
             return foundUser;
         }
-        
+
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
             string textThatChanged = textBoxSearch.Text;
-            
+
             listBoxNotSelected.Items.Clear();
 
             foreach (User friend in r_MainForm.Friends)
@@ -148,7 +148,7 @@ namespace FacebookApp
         private void loadXMLList()
         {
             XmlDocument doc = new XmlDocument();
-            
+
             createFileIfNotExist();
             try
             {

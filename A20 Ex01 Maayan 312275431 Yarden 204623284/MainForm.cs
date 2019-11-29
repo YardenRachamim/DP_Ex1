@@ -8,13 +8,13 @@ using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 
-namespace FacebookApp
+namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
     public partial class MainForm : Form
     {
         private FacebookObjectCollection<Post> m_Posts;
         private FacebookObjectCollection<Album> m_Albums;
-        
+
         public MainForm()
         {
             InitializeComponent();
@@ -52,7 +52,7 @@ namespace FacebookApp
         private void checkBoxPosts_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
-            if(checkBox.Checked == true)
+            if (checkBox.Checked == true)
             {
                 fetchUserPosts();
             }
@@ -95,7 +95,7 @@ namespace FacebookApp
                 listBoxAlbums.Items.Add("No Posts to retrieve...");
             }
         }
-        
+
         private void checkBoxAlbums_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
@@ -112,7 +112,7 @@ namespace FacebookApp
         private void fetchUserAlbums()
         {
             if (m_Albums == null)
-            { 
+            {
                 m_Albums = LoggedInUser.Albums;
             }
 
