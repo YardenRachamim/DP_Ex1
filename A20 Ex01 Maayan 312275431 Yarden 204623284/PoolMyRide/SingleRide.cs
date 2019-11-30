@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FacebookWrapper.ObjectModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,8 @@ namespace PoolMyRide
         private DateTime m_RideDate;
 
         // TODO: handle corectly
-        private List<RideGroup> rideGroups;
+        private RideGroup m_RideGroup;
+        private List<User> m_Users;
 
         public SingleRide(ePoolMyRidyCityOptions i_FromCity, ePoolMyRidyCityOptions i_ToCity,
             DateTime i_RideDate, bool i_IsDriver)
