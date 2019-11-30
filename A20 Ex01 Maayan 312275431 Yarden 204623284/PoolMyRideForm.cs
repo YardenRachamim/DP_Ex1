@@ -1,4 +1,5 @@
-﻿using System;
+﻿using A20_Ex01_Maayan_312275431_Yarden_204623284.PoolMyRide;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
     public partial class PoolMyRideForm : Form
     {
         private readonly MainForm rm_MainForm;
+        private Panel m_CurrentVisiblePanel;
 
         public PoolMyRideForm(MainForm i_MainForm)
         {
@@ -19,6 +21,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             rm_MainForm = i_MainForm;
             loadUserProfilePicture();
             initializeNewRidePanelComponent();
+            initalizePanelVisualization();
         }
 
         private void loadUserProfilePicture()
@@ -26,7 +29,37 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             LoggedInUserPictureBox.LoadAsync(rm_MainForm.LoggedInUser.PictureNormalURL);
         }
 
+        private void initalizePanelVisualization()
+        {
+            Control.ControlCollection formControls = this.Controls;
+
+            foreach(Control singleControl in formControls)
+            {
+                Panel panel = singleControl as Panel;
+
+                if(panel != null)
+                {
+                    panel.Visible = false;
+                }
+            }
+
+            NewRide_panel.Visible = true;
+            m_CurrentVisiblePanel = NewRide_panel;
+        }
+
+        private void visualizePanel(Panel i_PanelToVisualize)
+        {
+            m_CurrentVisiblePanel.Visible = false;
+            m_CurrentVisiblePanel = i_PanelToVisualize;
+            m_CurrentVisiblePanel.Visible = true;
+        }
+
         #region NewRide
+        private void newRideButton_Click(object sender, EventArgs e)
+        {
+            visualizePanel(NewRide_panel);
+        }
+
         private void initializeNewRidePanelComponent()
         {
              Control.ControlCollection controls = NewRide_panel.Controls;
@@ -43,9 +76,9 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void handleNewRideComboBox(ComboBox i_ComboBox)
         {
-            Array validCityNames = Enum.GetValues(typeof(PoolMyRidyCityOptions));
+            Array validCityNames = Enum.GetValues(typeof(ePoolMyRidyCityOptions));
 
-            foreach (PoolMyRidyCityOptions cityName in validCityNames)
+            foreach (ePoolMyRidyCityOptions cityName in validCityNames)
             {
                 i_ComboBox.Items.Add(cityName);
             }
@@ -53,25 +86,35 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             i_ComboBox.Text = validCityNames.GetValue(0).ToString();
         }
 
-        private void newRideButton_Click(object sender, EventArgs e)
-        {
-            visualizePanel(NewRide_panel);
-        }
-
         private void newRideSubmitButton_Click(object sender, EventArgs e)
         {
-            // get all new ride data, and save it to a DB
-            throw new NotImplementedException();
+            handleNewRideSubmission();
+        }
+
+        private void handleNewRideSubmission()
+        {
+            bool isCityFromValid = Enum.TryParse(NewRide_fromComboBox.Text, out ePoolMyRidyCityOptions cityFrom);
+            bool isCityToValid = Enum.TryParse(NewRide_toComboBox.Text, out ePoolMyRidyCityOptions cityTo);
+            DateTime rideDate = NewRide_dateTimePicker.Value;
+            bool isDriver = NewRide_isDriverCheckBox.Checked;
+
+            try
+            {
+                SingleRide newRide = new SingleRide(cityFrom, cityTo, rideDate, isDriver);
+                // TODO: add saving new ride to the db
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         #endregion NewRide
 
         #region JoinRide
         private void joinRideButton_Click(object sender, EventArgs e)
         {
-            //visualizePanel(JoinRide_panel);
-            throw new NotImplementedException();
+            visualizePanel(JoinRide_panel);
         }
-        #endregion JoinRide
+        #endregion JoinRide 
 
         #region FindeRide
         private void FindRideButton_Click(object sender, EventArgs e)
@@ -80,12 +123,5 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             throw new NotImplementedException();
         }
         #endregion FindeRide
-
-        private void visualizePanel(Panel i_PanelToVisualize)
-        {
-            // Unvisualize the current panel
-            // visualize the i_PanelToVisualize
-            throw new NotImplementedException();
-        }
     }
 }
