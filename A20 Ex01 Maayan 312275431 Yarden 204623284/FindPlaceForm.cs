@@ -187,6 +187,18 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         private void buttonFindPlaces_Click(object sender, EventArgs e)
         {
             writeToXMLLastFriendsList();
+            findCommonPlacesLikedByAllFriends();
+        }
+
+        private void findCommonPlacesLikedByAllFriends()
+        {
+            FacebookObjectCollection<Page> allLikedPages = new FacebookObjectCollection<Page>();
+
+            foreach(string friendName in listBoxSelected.Items)
+            {
+                User friendUser = getSelectedUserByName(friendName);
+                //continue here maayan
+            }
         }
 
         private void writeToXMLLastFriendsList()
@@ -194,30 +206,21 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             createFileIfNotExist();
             try
             {
-                foreach (string name in listBoxSelected.Items)
+                XmlDocument xmlDoc = new XmlDocument();
+                XmlNode rootNode = xmlDoc.CreateElement("lastFriendsList");
+                foreach (string friendName in listBoxSelected.Items)
                 {
-
-                    XmlWriter xmlWriter = XmlWriter.Create("test.xml");
-
-                    xmlWriter.WriteStartDocument();
-                    xmlWriter.WriteStartElement("users");
-
-                    xmlWriter.WriteStartElement("user");
-                    xmlWriter.WriteAttributeString("age", "42");
-                    xmlWriter.WriteString("John Doe");
-                    xmlWriter.WriteEndElement();
-
-                    xmlWriter.WriteStartElement("user");
-                    xmlWriter.WriteAttributeString("age", "39");
-                    xmlWriter.WriteString("Jane Doe");
-
-                    xmlWriter.WriteEndDocument();
-                    xmlWriter.Close();
+                    xmlDoc.AppendChild(rootNode);
+                    XmlNode userNode = xmlDoc.CreateElement("friend");
+                    userNode.InnerText = friendName;
+                    rootNode.AppendChild(userNode);
                 }
+
+                xmlDoc.Save(k_FilePath);
             }
             catch (Exception e)
             {
-
+                //DoNothing TODO: leave it like this?
             }
         }
 
