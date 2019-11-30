@@ -175,7 +175,11 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void buttonPoolMyRide_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            this.Hide();
+
+            PoolMyRideForm poolMyRideForm = new PoolMyRideForm(this);
+
+            poolMyRideForm.ShowDialog();
         }
 
         #region Logout
@@ -190,5 +194,6 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             rm_LoginForm.ShowDialog();
         }
         #endregion Logout
+
     }
 }
