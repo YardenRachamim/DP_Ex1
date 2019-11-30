@@ -77,7 +77,8 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             if (!string.IsNullOrEmpty(result.AccessToken))
             {
                 m_MainForm.Result = result;
-                m_MainForm.LoggedInUser = result.LoggedInUser;
+                LoggedInUser.Init(result.LoggedInUser);
+                m_MainForm.LoggedInUser = LoggedInUser.GetLoggedInUser;
                 this.Hide();
                 m_MainForm.StartForm();
             }

@@ -1,4 +1,5 @@
-﻿using PoolMyRide;
+﻿using FacebookWrapper.ObjectModel;
+using PoolMyRide;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,13 +13,12 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
     public partial class PoolMyRideForm : Form
     {
-        private readonly MainForm rm_MainForm;
         private Panel m_CurrentVisiblePanel;
+        private readonly User sm_LoggedInUser = LoggedInUser.GetLoggedInUser;
 
         public PoolMyRideForm(MainForm i_MainForm)
         {
             InitializeComponent();
-            rm_MainForm = i_MainForm;
             loadUserProfilePicture();
             initializeNewRidePanelComponent();
             initalizePanelVisualization();
@@ -26,7 +26,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void loadUserProfilePicture()
         {
-            LoggedInUserPictureBox.LoadAsync(rm_MainForm.LoggedInUser.PictureNormalURL);
+            LoggedInUserPictureBox.LoadAsync(sm_LoggedInUser.PictureNormalURL);
         }
 
         private void initalizePanelVisualization()
