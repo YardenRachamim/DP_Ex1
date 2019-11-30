@@ -1,4 +1,4 @@
-﻿using A20_Ex01_Maayan_312275431_Yarden_204623284.PoolMyRide;
+﻿using PoolMyRide;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -80,10 +80,11 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
             foreach (ePoolMyRidyCityOptions cityName in validCityNames)
             {
+                if(cityName != ePoolMyRidyCityOptions.None)
                 i_ComboBox.Items.Add(cityName);
             }
 
-            i_ComboBox.Text = validCityNames.GetValue(0).ToString();
+            i_ComboBox.Text = validCityNames.GetValue(1).ToString();
         }
 
         private void newRideSubmitButton_Click(object sender, EventArgs e)
