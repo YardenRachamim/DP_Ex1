@@ -22,7 +22,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                 if(sm_LoggedInUser == null)
                 {
                     // TODO: throw the right exceprion
-                    throw new Exception("GetLoggedInUser must be initialized first!");
+                    throw new Exception("LoggedInUser must be initialized first! please use LoggedInUser.Init(User) method");
                 }
 
                 return sm_LoggedInUser;

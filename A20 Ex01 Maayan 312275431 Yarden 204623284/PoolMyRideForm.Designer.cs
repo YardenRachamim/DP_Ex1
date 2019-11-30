@@ -31,7 +31,7 @@
             this.NewRideButton = new System.Windows.Forms.Button();
             this.LoggedInUserPictureBox = new System.Windows.Forms.PictureBox();
             this.JoinRideButton = new System.Windows.Forms.Button();
-            this.FindRideButton = new System.Windows.Forms.Button();
+            this.RideGropButton = new System.Windows.Forms.Button();
             this.NewRide_panel = new System.Windows.Forms.Panel();
             this.NewRide_toComboBox = new System.Windows.Forms.ComboBox();
             this.NewRide_fromComboBox = new System.Windows.Forms.ComboBox();
@@ -43,10 +43,19 @@
             this.NewRide_isDriverCheckBox = new System.Windows.Forms.CheckBox();
             this.NewRide_headerLabel = new System.Windows.Forms.Label();
             this.JoinRide_panel = new System.Windows.Forms.Panel();
+            this.JoinRide_button = new System.Windows.Forms.Button();
+            this.JoinRide_listBox = new System.Windows.Forms.ListBox();
             this.JoinRide_header = new System.Windows.Forms.Label();
+            this.RideGroups_panel = new System.Windows.Forms.Panel();
+            this.RideGroups_join = new System.Windows.Forms.Button();
+            this.RideGroups_new = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.RideGroups_listBox = new System.Windows.Forms.ListBox();
+            this.RideGroups_label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.LoggedInUserPictureBox)).BeginInit();
             this.NewRide_panel.SuspendLayout();
             this.JoinRide_panel.SuspendLayout();
+            this.RideGroups_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // NewRideButton
@@ -78,15 +87,15 @@
             this.JoinRideButton.UseVisualStyleBackColor = true;
             this.JoinRideButton.Click += new System.EventHandler(this.joinRideButton_Click);
             // 
-            // FindRideButton
+            // RideGropButton
             // 
-            this.FindRideButton.Location = new System.Drawing.Point(12, 420);
-            this.FindRideButton.Name = "FindRideButton";
-            this.FindRideButton.Size = new System.Drawing.Size(163, 73);
-            this.FindRideButton.TabIndex = 3;
-            this.FindRideButton.Text = "New Ride Group";
-            this.FindRideButton.UseVisualStyleBackColor = true;
-            this.FindRideButton.Click += new System.EventHandler(this.FindRideButton_Click);
+            this.RideGropButton.Location = new System.Drawing.Point(12, 420);
+            this.RideGropButton.Name = "RideGropButton";
+            this.RideGropButton.Size = new System.Drawing.Size(163, 73);
+            this.RideGropButton.TabIndex = 3;
+            this.RideGropButton.Text = "Ride Groups";
+            this.RideGropButton.UseVisualStyleBackColor = true;
+            this.RideGropButton.Click += new System.EventHandler(this.findRideButton_Click);
             // 
             // NewRide_panel
             // 
@@ -185,29 +194,98 @@
             // 
             // JoinRide_panel
             // 
+            this.JoinRide_panel.Controls.Add(this.JoinRide_button);
+            this.JoinRide_panel.Controls.Add(this.JoinRide_listBox);
             this.JoinRide_panel.Controls.Add(this.JoinRide_header);
             this.JoinRide_panel.Location = new System.Drawing.Point(218, 222);
             this.JoinRide_panel.Name = "JoinRide_panel";
             this.JoinRide_panel.Size = new System.Drawing.Size(761, 273);
             this.JoinRide_panel.TabIndex = 11;
             // 
+            // JoinRide_button
+            // 
+            this.JoinRide_button.Location = new System.Drawing.Point(0, 207);
+            this.JoinRide_button.Name = "JoinRide_button";
+            this.JoinRide_button.Size = new System.Drawing.Size(312, 45);
+            this.JoinRide_button.TabIndex = 2;
+            this.JoinRide_button.Text = "Show Available Rides";
+            this.JoinRide_button.UseVisualStyleBackColor = true;
+            this.JoinRide_button.Click += new System.EventHandler(this.JoinRide_availableGroup_Click);
+            // 
+            // JoinRide_listBox
+            // 
+            this.JoinRide_listBox.FormattingEnabled = true;
+            this.JoinRide_listBox.ItemHeight = 20;
+            this.JoinRide_listBox.Location = new System.Drawing.Point(3, 37);
+            this.JoinRide_listBox.Name = "JoinRide_listBox";
+            this.JoinRide_listBox.Size = new System.Drawing.Size(755, 164);
+            this.JoinRide_listBox.TabIndex = 1;
+            // 
             // JoinRide_header
             // 
             this.JoinRide_header.AutoSize = true;
             this.JoinRide_header.Location = new System.Drawing.Point(3, 0);
             this.JoinRide_header.Name = "JoinRide_header";
-            this.JoinRide_header.Size = new System.Drawing.Size(248, 30);
+            this.JoinRide_header.Size = new System.Drawing.Size(165, 20);
             this.JoinRide_header.TabIndex = 0;
             this.JoinRide_header.Text = "Join to an existing ride";
+            // 
+            // RideGroups_panel
+            // 
+            this.RideGroups_panel.Controls.Add(this.RideGroups_label);
+            this.RideGroups_panel.Controls.Add(this.RideGroups_listBox);
+            this.RideGroups_panel.Controls.Add(this.RideGroups_join);
+            this.RideGroups_panel.Controls.Add(this.RideGroups_new);
+            this.RideGroups_panel.Location = new System.Drawing.Point(218, 204);
+            this.RideGroups_panel.Name = "RideGroups_panel";
+            this.RideGroups_panel.Size = new System.Drawing.Size(764, 394);
+            this.RideGroups_panel.TabIndex = 12;
+            // 
+            // RideGroups_join
+            // 
+            this.RideGroups_join.Location = new System.Drawing.Point(41, 156);
+            this.RideGroups_join.Name = "RideGroups_join";
+            this.RideGroups_join.Size = new System.Drawing.Size(163, 73);
+            this.RideGroups_join.TabIndex = 13;
+            this.RideGroups_join.Text = "Join a Ride Group";
+            this.RideGroups_join.UseVisualStyleBackColor = true;
+            // 
+            // RideGroups_new
+            // 
+            this.RideGroups_new.Location = new System.Drawing.Point(41, 59);
+            this.RideGroups_new.Name = "RideGroups_new";
+            this.RideGroups_new.Size = new System.Drawing.Size(163, 73);
+            this.RideGroups_new.TabIndex = 14;
+            this.RideGroups_new.Text = "New Ride Group";
+            this.RideGroups_new.UseVisualStyleBackColor = true;
+            // 
+            // RideGroups_listBox
+            // 
+            this.RideGroups_listBox.FormattingEnabled = true;
+            this.RideGroups_listBox.ItemHeight = 20;
+            this.RideGroups_listBox.Location = new System.Drawing.Point(333, 55);
+            this.RideGroups_listBox.Name = "RideGroups_listBox";
+            this.RideGroups_listBox.Size = new System.Drawing.Size(405, 324);
+            this.RideGroups_listBox.TabIndex = 15;
+            // 
+            // RideGroups_label
+            // 
+            this.RideGroups_label.AutoSize = true;
+            this.RideGroups_label.Location = new System.Drawing.Point(333, 32);
+            this.RideGroups_label.Name = "RideGroups_label";
+            this.RideGroups_label.Size = new System.Drawing.Size(176, 30);
+            this.RideGroups_label.TabIndex = 16;
+            this.RideGroups_label.Text = "Existing groups";
             // 
             // PoolMyRideForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1124, 695);
+            this.Controls.Add(this.RideGroups_panel);
             this.Controls.Add(this.JoinRide_panel);
             this.Controls.Add(this.NewRide_panel);
-            this.Controls.Add(this.FindRideButton);
+            this.Controls.Add(this.RideGropButton);
             this.Controls.Add(this.JoinRideButton);
             this.Controls.Add(this.LoggedInUserPictureBox);
             this.Controls.Add(this.NewRideButton);
@@ -218,6 +296,8 @@
             this.NewRide_panel.PerformLayout();
             this.JoinRide_panel.ResumeLayout(false);
             this.JoinRide_panel.PerformLayout();
+            this.RideGroups_panel.ResumeLayout(false);
+            this.RideGroups_panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -227,7 +307,7 @@
         private System.Windows.Forms.Button NewRideButton;
         private System.Windows.Forms.PictureBox LoggedInUserPictureBox;
         private System.Windows.Forms.Button JoinRideButton;
-        private System.Windows.Forms.Button FindRideButton;
+        private System.Windows.Forms.Button RideGropButton;
         private System.Windows.Forms.Panel NewRide_panel;
         private System.Windows.Forms.Button NewRide_submitButton;
         private System.Windows.Forms.DateTimePicker NewRide_dateTimePicker;
@@ -240,5 +320,13 @@
         private System.Windows.Forms.ComboBox NewRide_fromComboBox;
         private System.Windows.Forms.Panel JoinRide_panel;
         private System.Windows.Forms.Label JoinRide_header;
+        private System.Windows.Forms.ListBox JoinRide_listBox;
+        private System.Windows.Forms.Button JoinRide_button;
+        private System.Windows.Forms.Panel RideGroups_panel;
+        private System.Windows.Forms.Button RideGroups_join;
+        private System.Windows.Forms.Button RideGroups_new;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.ListBox RideGroups_listBox;
+        private System.Windows.Forms.Label RideGroups_label;
     }
 }

@@ -94,5 +94,12 @@ namespace PoolMyRide
         {
             IsDriver = i_IsDriver;
         }
+
+        public override string ToString()
+        {
+            string singleRideString = $"from {FromCity} to {ToCity} at {RideDate}";
+
+            return singleRideString;
+        }
     }
 }

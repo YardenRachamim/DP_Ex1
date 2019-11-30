@@ -1,5 +1,6 @@
 ﻿using FacebookWrapper.ObjectModel;
 using PoolMyRide;
+using DataHandler;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Reflection;
+using Utils;
 
 namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
@@ -15,6 +18,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
     {
         private Panel m_CurrentVisiblePanel;
         private readonly User sm_LoggedInUser = LoggedInUser.GetLoggedInUser;
+        private readonly DBHandler m_DBHandler = DBHandler.GetInstance;
 
         public PoolMyRideForm(MainForm i_MainForm)
         {
@@ -57,6 +61,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         #region NewRide
         private void newRideButton_Click(object sender, EventArgs e)
         {
+            initializeNewRidePanelComponent();
             visualizePanel(NewRide_panel);
         }
 
@@ -102,9 +107,12 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             try
             {
                 SingleRide newRide = new SingleRide(cityFrom, cityTo, rideDate, isDriver);
-                // TODO: add saving new ride to the db
-            }catch(Exception ex)
+
+                m_DBHandler.AddSingleRide(newRide);
+            }
+            catch (Exception ex)
             {
+                // TODO: catch the right Exception
                 MessageBox.Show(ex.Message);
             }
         }
@@ -113,15 +121,133 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         #region JoinRide
         private void joinRideButton_Click(object sender, EventArgs e)
         {
+            initializeJoinRidePanelComponent();
             visualizePanel(JoinRide_panel);
         }
+
+        private void initializeJoinRidePanelComponent()
+        {
+            JoinRide_listBox.Items.Clear();
+            MyUtils.RemoveAllClickEvents(JoinRide_button);
+            try
+            {
+                List<RideGroup> userRideGroups = m_DBHandler.FetchAllUserRideGroups(sm_LoggedInUser);
+
+                foreach (RideGroup ride in userRideGroups)
+                {
+                    JoinRide_listBox.Items.Add(ride);
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO: change to the right Exception type
+                MessageBox.Show(ex.Message);
+            }
+            
+            JoinRide_button.Click += new EventHandler(JoinRide_availableGroup_Click);
+            JoinRide_button.Text = "Show Available Rides";
+        }
+
+        private void JoinRide_availableGroup_Click(object sender, EventArgs e)
+        {
+            RideGroup selectedRideGroup = JoinRide_listBox.SelectedItem as RideGroup;
+
+            if(selectedRideGroup != null)
+            {
+                try
+                {
+                    List<SingleRide> groupRides = m_DBHandler.FetchSingleRideGroupRides(selectedRideGroup);
+
+                    foreach (SingleRide ride in groupRides)
+                    {
+                        JoinRide_listBox.Items.Clear();
+                        JoinRide_listBox.Items.Add(ride);
+                        MyUtils.RemoveAllClickEvents(JoinRide_button);
+                        JoinRide_button.Click += new EventHandler(JoinRide_joinTheRide_Click);
+                        JoinRide_button.Text = "Join the ride!";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // TODO: change to the right Exception type
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a Ride Group");
+            }
+        }
+
+        private void JoinRide_joinTheRide_Click(object sender, EventArgs e)
+        {
+            SingleRide singleRide = JoinRide_listBox.SelectedItem as SingleRide;
+
+            if (singleRide != null)
+            {
+                // TODO: implement join the ride
+            }
+        }
+
         #endregion JoinRide 
 
         #region FindeRide
-        private void FindRideButton_Click(object sender, EventArgs e)
+        private void findRideButton_Click(object sender, EventArgs e)
         {
-            //visualizePanel(FindRide_panel);
+            initializeRideGroupsPanelComponent();
+            visualizePanel(RideGroups_panel);
+        }
+
+        private void initializeRideGroupsPanelComponent()
+        {
+            MyUtils.RemoveAllClickEvents(RideGroups_new);
+            MyUtils.RemoveAllClickEvents(RideGroups_join);
+            RideGroups_new.Click += new EventHandler(RideGroups_new_Click);
+            RideGroups_join.Click += new EventHandler(RideGroups_join_Click);
+
+            try
+            {
+                List<RideGroup> allRideGroups = m_DBHandler.FetchAllRideGroups();
+
+                foreach (RideGroup rideGroup in allRideGroups)
+                {
+                    RideGroups_listBox.Items.Add(rideGroup);
+                }
+
+                RideGroups_listBox.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                // TODO: change to the right Exception type
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void RideGroups_new_Click(object sender, EventArgs e)
+        {
             throw new NotImplementedException();
+        }
+
+        private void RideGroups_join_Click(object sender, EventArgs e)
+        {
+            RideGroup rideGroupToJoin = RideGroups_listBox.SelectedItem as RideGroup;
+
+            if (rideGroupToJoin != null)
+            {
+                try
+                {
+                    m_DBHandler.AddUserToRideGroup(sm_LoggedInUser, rideGroupToJoin);
+                }
+                catch (Exception ex)
+                {
+                    // TODO: change to the right Exception type
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a group to join to");
+            }
         }
         #endregion FindeRide
     }
