@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using FacebookWrapper;
+﻿using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
+using System;
+using System.Windows.Forms;
 
 namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
@@ -14,12 +9,13 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
     {
         private FacebookObjectCollection<Post> m_Posts;
         private FacebookObjectCollection<Album> m_Albums;
+        private readonly LoginForm rm_LoginForm;
 
         public MainForm()
         {
             InitializeComponent();
-            LoginForm loginForm = new LoginForm(this);
-            loginForm.ShowDialog();
+            rm_LoginForm = new LoginForm(this);
+            rm_LoginForm.ShowDialog();
         }
 
         public LoginResult Result { get; set; }
@@ -31,7 +27,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             LoggedInUserPictureBox.LoadAsync(LoggedInUser.PictureNormalURL);
         }
 
-        public void StratForm()
+        public void StartForm()
         {
             fetchUserPicture();
             fetchUserDetails();
@@ -176,5 +172,26 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             FindPlaceForm findPlaceForm = new FindPlaceForm(this);
         }
+
+        private void buttonPoolMyRide_Click(object sender, EventArgs e)
+        {
+            PoolMyRideForm poolMyRideForm = new PoolMyRideForm(this);
+
+            poolMyRideForm.ShowDialog();
+        }
+
+        #region Logout
+        private void buttonLogOut_Click(object sender, EventArgs e)
+        {
+            FacebookWrapper.FacebookService.Logout(logOutCallback);
+        }
+
+        private void logOutCallback()
+        {
+            this.Hide();
+            rm_LoginForm.ShowDialog();
+        }
+        #endregion Logout
+
     }
 }
