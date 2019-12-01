@@ -77,8 +77,7 @@
     <Compile Include="PoolMyRideForm.Designer.cs">
       <DependentUpon>PoolMyRideForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PoolMyRide\RideGroup.cs" />
-    <Compile Include="PoolMyRide\SingleRide.cs" />
+    <Compile Include="PoolMyRide\NewRideConrolsData.cs" />
     <Compile Include="PoolMyRide\PoolMyRidyCityOptions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

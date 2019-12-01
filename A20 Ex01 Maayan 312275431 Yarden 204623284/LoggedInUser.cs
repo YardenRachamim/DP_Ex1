@@ -13,6 +13,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private LoggedInUser()
         {
+
         }
 
         public static User GetLoggedInUser

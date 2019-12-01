@@ -1,6 +1,5 @@
 ﻿using A20_Ex01_Maayan_312275431_Yarden_204623284;
 using FacebookWrapper.ObjectModel;
-using PoolMyRide;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +7,10 @@ using System.Text;
 
 namespace DataHandler
 {
-    class DBHandler
+    public class DBHandler
     {
-        private static DBHandler sm_DBHandler = null;
-        private static readonly object srm_Padlock = new object();
+        private static DBHandler s_DBHandler = null;
+        private static readonly object sr_Padlock = new object();
 
         private DBHandler()
         {
@@ -21,62 +20,35 @@ namespace DataHandler
         {
             get
             {
-                if (sm_DBHandler == null)
+                if (s_DBHandler == null)
                 {
-                    lock (srm_Padlock)
+                    lock (sr_Padlock)
                     {
-                        if (sm_DBHandler == null)
+                        if (s_DBHandler == null)
                         {
-                            sm_DBHandler = new DBHandler();
+                            s_DBHandler = new DBHandler();
                         }
                     }
                 }
 
-                return sm_DBHandler;
+                return s_DBHandler;
             }
         }
 
-        public List<RideGroup> FetchAllUserRideGroups(User i_User)
+        public List<string> FetchAllUserRideGroupsIDs(string i_UserID)
         {
             // TODO: implement
-            List<RideGroup> userRideGroups = new List<RideGroup>();
+            List<string> rideGroupIds = new List<string>();
 
-            userRideGroups.Add(new RideGroup("IDC Rides"));
-            userRideGroups.Add(new RideGroup("Netnya To TelAviv carpool!!"));
+            rideGroupIds.Add("0");
+            rideGroupIds.Add("1");
 
-            return userRideGroups;
+            return rideGroupIds;
         }
 
-        public List<SingleRide> FetchSingleRideGroupRides(RideGroup selectedRideGroup)
+        internal void SaveEventToGroupRides(string i_GroupID, string i_EventID)
         {
             // TODO: implement
-            List<SingleRide> groupRides = new List<SingleRide>();
-
-            groupRides.Add(new SingleRide(ePoolMyRidyCityOptions.Haifa, ePoolMyRidyCityOptions.Netanya,
-                DateTime.Now.AddDays(1), true));
-
-            return groupRides;
-        }
-
-        public List<RideGroup> FetchAllRideGroups()
-        {
-            // TODO: implement
-            List<RideGroup> userRideGroups = new List<RideGroup>();
-
-            userRideGroups.Add(new RideGroup("IDC Rides"));
-            userRideGroups.Add(new RideGroup("Netnya To TelAviv carpool!!"));
-            userRideGroups.Add(new RideGroup("TelAviv To Netnya carpool!!"));
-
-            return userRideGroups;
-        }
-
-        public void AddUserToRideGroup(User i_User, RideGroup i_RideGroup)
-        {
-            // TODO: implement
-        }
-
-        public void AddSingleRide(SingleRide i_NewRide)
-        {
             throw new NotImplementedException();
         }
     }
