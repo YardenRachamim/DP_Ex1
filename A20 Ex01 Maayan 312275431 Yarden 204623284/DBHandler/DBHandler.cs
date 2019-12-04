@@ -2,8 +2,11 @@
 using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace DataHandler
 {
@@ -61,6 +64,56 @@ namespace DataHandler
             rideEventsIDs.Add("1");
 
             return rideEventsIDs;
+        }
+
+        internal XmlDocument LoadXMLFromPath(string i_FilePath)
+        {
+            XmlDocument doc = new XmlDocument();
+
+            createFileIfNotExist(i_FilePath);
+            doc.Load(i_FilePath);
+
+            return doc;
+        }
+
+        private void createFileIfNotExist(string i_FilePath)
+        {
+            if (!File.Exists(i_FilePath))
+            {
+                // Create a file to write to.
+                using (StreamWriter sw = File.CreateText(i_FilePath))
+                {
+                    sw.WriteLine("<lastFriendsList>");
+                    sw.WriteLine("</lastFriendsList>");
+                }
+            }
+        }
+
+        internal void WritrToXMLLastFreindsList(string i_FilePath, ListBox.ObjectCollection i_Items)
+        {
+            createFileIfNotExist(i_FilePath);
+            try
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                XmlNode rootNode = xmlDoc.CreateElement("lastFriendsList");
+                xmlDoc.AppendChild(rootNode);
+
+
+                foreach (string friendName in i_Items)
+                {
+
+                    XmlNode userNode = xmlDoc.CreateElement("friend");
+
+                    userNode.InnerText = friendName;
+                    rootNode.AppendChild(userNode);
+                }
+
+                xmlDoc.Save(i_FilePath);
+            }
+            catch (Exception e)
+            {
+                //DoNothing
+            }
         }
     }
 }

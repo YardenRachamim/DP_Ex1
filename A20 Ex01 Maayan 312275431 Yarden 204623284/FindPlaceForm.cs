@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Xml;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
+using DataHandler;
 
 namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
@@ -20,7 +21,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         private readonly MainForm r_MainForm;
         private readonly FacebookObjectCollection<User> r_FilteredOutFriend = new FacebookObjectCollection<User>();
         private const string k_SearchBoxLabel = "Name...";
-        string k_FilePath = "./DB_LastCloseFriend.XML";
+        string k_FileLastFriendsListPath = "./DB_LastCloseFriend.XML";
 
         public FindPlaceForm(MainForm i_MainForm)
         {
@@ -173,12 +174,10 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void loadXMLList()
         {
-            XmlDocument doc = new XmlDocument();
-
-            createFileIfNotExist();
+            XmlDocument doc = DBHandler.GetInstance.LoadXMLFromPath(k_FileLastFriendsListPath);
+            
             try
             {
-                doc.Load(k_FilePath);
                 foreach (XmlNode node in doc.DocumentElement.ChildNodes)
                 {
                     string friendNameFromXML = node.InnerText;
@@ -267,43 +266,10 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void writeToXMLLastFriendsList()
         {
-            createFileIfNotExist();
-            try
-            {
-                XmlDocument xmlDoc = new XmlDocument();
-                XmlNode rootNode = xmlDoc.CreateElement("lastFriendsList");
-                xmlDoc.AppendChild(rootNode);
-
-
-                foreach (string friendName in listBoxSelected.Items)
-                {
-                    
-                    XmlNode userNode = xmlDoc.CreateElement("friend");
-
-                    userNode.InnerText = friendName;
-                    rootNode.AppendChild(userNode);
-                }
-
-                xmlDoc.Save(k_FilePath);
-            }
-            catch (Exception e)
-            {
-                //DoNothing TODO: FIX is needed
-            }
+            DBHandler.GetInstance.WritrToXMLLastFreindsList(k_FileLastFriendsListPath, listBoxSelected.Items);
         }
 
-        private void createFileIfNotExist()
-        {
-            if (!File.Exists(k_FilePath))
-            {
-                // Create a file to write to.
-                using (StreamWriter sw = File.CreateText(k_FilePath))
-                {
-                    sw.WriteLine("<lastFriendsList>");
-                    sw.WriteLine("</lastFriendsList>");
-                }
-            }
-        }
+
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
