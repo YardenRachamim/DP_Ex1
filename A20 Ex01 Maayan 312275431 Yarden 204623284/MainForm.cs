@@ -9,22 +9,20 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
     {
         private FacebookObjectCollection<Post> m_Posts;
         private FacebookObjectCollection<Album> m_Albums;
-        private readonly LoginForm rm_LoginForm;
+        private readonly LoginForm r_LoginForm;
 
         public MainForm()
         {
             InitializeComponent();
-            rm_LoginForm = new LoginForm(this);
-            rm_LoginForm.ShowDialog();
+            r_LoginForm = new LoginForm(this);
+            r_LoginForm.ShowDialog();
         }
 
-        public LoginResult Result { get; set; }
-        public User LoggedInUser { get; set; }
         public FacebookObjectCollection<User> Friends { get; set; }
 
         private void fetchUserPicture()
         {
-            LoggedInUserPictureBox.LoadAsync(LoggedInUser.PictureNormalURL);
+            LoggedInUserPictureBox.LoadAsync(LoggedInUser.GetLoggedInUser.PictureNormalURL);
         }
 
         public void StartForm()
@@ -36,13 +34,13 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void fetchUserDetails()
         {
-            listBoxDetails.Items.Add("First Name: " + LoggedInUser.FirstName);
-            listBoxDetails.Items.Add("Last Name: " + LoggedInUser.LastName);
-            listBoxDetails.Items.Add("Birthday: " + LoggedInUser.Birthday);
-            listBoxDetails.Items.Add("Hometown: " + LoggedInUser.Hometown);
-            listBoxDetails.Items.Add("RelationshipStatus: " + LoggedInUser.RelationshipStatus);
-            listBoxDetails.Items.Add("Religion: " + LoggedInUser.Religion);
-            listBoxDetails.Items.Add("TimeZone: " + LoggedInUser.TimeZone);
+            listBoxDetails.Items.Add("First Name: " + LoggedInUser.GetLoggedInUser.FirstName);
+            listBoxDetails.Items.Add("Last Name: " + LoggedInUser.GetLoggedInUser.LastName);
+            listBoxDetails.Items.Add("Birthday: " + LoggedInUser.GetLoggedInUser.Birthday);
+            listBoxDetails.Items.Add("Hometown: " + LoggedInUser.GetLoggedInUser.Hometown);
+            listBoxDetails.Items.Add("RelationshipStatus: " + LoggedInUser.GetLoggedInUser.RelationshipStatus);
+            listBoxDetails.Items.Add("Religion: " + LoggedInUser.GetLoggedInUser.Religion);
+            listBoxDetails.Items.Add("TimeZone: " + LoggedInUser.GetLoggedInUser.TimeZone);
         }
 
         private void checkBoxPosts_CheckedChanged(object sender, EventArgs e)
@@ -67,7 +65,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             if (m_Posts == null)
             {
-                m_Posts = LoggedInUser.Posts;
+                m_Posts = LoggedInUser.GetLoggedInUser.Posts;
             }
 
             foreach (Post post in m_Posts)
@@ -109,7 +107,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             if (m_Albums == null)
             {
-                m_Albums = LoggedInUser.Albums;
+                m_Albums = LoggedInUser.GetLoggedInUser.Albums;
             }
 
             foreach (Album album in m_Albums)
@@ -148,7 +146,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             if (Friends == null)
             {
-                Friends = LoggedInUser.Friends;
+                Friends = LoggedInUser.GetLoggedInUser.Friends;
             }
 
             foreach (User friend in Friends)
@@ -188,8 +186,20 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void logOutCallback()
         {
+            // TODO: reset LoggedInUser. and reset all data
+            resetAllUserData();
             this.Hide();
-            rm_LoginForm.ShowDialog();
+            r_LoginForm.Show();
+        }
+
+        private void resetAllUserData()
+        {
+            LoggedInUser.RestartLoggedInUser();
+            m_Albums = null;
+            m_Posts = null;
+            Friends = null;
+
+
         }
         #endregion Logout
 
