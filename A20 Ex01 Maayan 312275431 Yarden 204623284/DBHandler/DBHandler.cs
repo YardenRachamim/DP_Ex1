@@ -51,5 +51,16 @@ namespace DataHandler
             // TODO: implement
             throw new NotImplementedException();
         }
+
+        internal List<string> FetchAllGroupRides(string groupID)
+        {
+            // TODO: implement
+            List<string> rideEventsIDs = new List<string>();
+
+            rideEventsIDs.Add("0");
+            rideEventsIDs.Add("1");
+
+            return rideEventsIDs;
+        }
     }
 }

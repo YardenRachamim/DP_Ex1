@@ -26,12 +26,51 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         public PoolMyRideForm(MainForm i_MainForm)
         {
-            // TODO: make the window start bigger
+            // TODO: make the window start in the right size 
             InitializeComponent();
             fetchUserData();
             loadUserProfilePicture();
             initializeNewRidePanelComponent();
             initalizePanelVisualization();
+        }
+
+        private void clearAllPanelControls(Panel i_panel)
+        {
+            Control.ControlCollection panelControls = i_panel.Controls;
+
+            foreach(Control control in panelControls)
+            {
+                if (control is TextBox)
+                {
+                    TextBox txtbox = (TextBox) control;
+                    txtbox.Text = string.Empty;
+                }
+                else if (control is CheckBox)
+                {
+                    CheckBox chkbox = (CheckBox) control;
+                    chkbox.Checked = false;
+                }
+                else if (control is ListBox)
+                {
+                    ListBox listBox = (ListBox)control;
+                    listBox.Items.Clear();
+                }
+                else if (control is DateTimePicker)
+                {
+                    DateTimePicker dtp = (DateTimePicker) control;
+                    dtp.Value = DateTime.Now;
+                }
+                else if (control is ComboBox)
+                {
+                    ComboBox comboBox = (ComboBox) control;
+                    comboBox.Items.Clear();
+                }
+                else if(control is Button)
+                {
+                    Button button = (Button)control;
+                    MyUtils.RemoveAllClickEvents(button);
+                }
+            }
         }
 
         #region Fetch user data
@@ -101,6 +140,8 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void initializeNewRidePanelComponent()
         {
+            clearAllPanelControls(NewRide_panel);
+            NewRide_submitButton.Click += new EventHandler(newRideSubmitButton_Click);
             initNewRideComboBox();
         }
 
@@ -218,8 +259,9 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void initializeJoinRidePanelComponent()
         {
-            JoinRide_listBox.Items.Clear();
-            MyUtils.RemoveAllClickEvents(JoinRide_button);
+            clearAllPanelControls(JoinRide_panel);
+            JoinRide_button.Click += new EventHandler(JoinRide_availableGroup_Click);
+            JoinRide_button.Text = "Show Available Rides";
 
             try
             {
@@ -233,17 +275,68 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                 // TODO: change to the right Exception type
                 MessageBox.Show(ex.Message);
             }
-
-            JoinRide_button.Click += new EventHandler(JoinRide_availableGroup_Click);
-            JoinRide_button.Text = "Show Available Rides";
         }
 
         private void JoinRide_availableGroup_Click(object sender, EventArgs e)
         {
+            handleAvailableGroupSubmission();
+        }
+
+        private void handleAvailableGroupSubmission()
+        {
+            string chosenGroupName = JoinRide_listBox.SelectedItem as string;
+                
+            if (chosenGroupName != null)
+            {
+                JoinRide_listBox.Items.Clear();
+
+                try
+                {
+                    string groupID = m_UserGroupNameIDMapping[chosenGroupName];
+                    List<string> groupRideEventsIDs =
+                        r_DBHandler.FetchAllGroupRides(groupID);
+
+                    foreach (string groupRideEventID in groupRideEventsIDs)
+                    {
+                        Event rideEvent =
+                            FacebookWrapper.FacebookService.GetObject(groupRideEventID);
+
+                        JoinRide_listBox.Items.Add(rideEvent);
+                    }
+
+                    MyUtils.RemoveAllClickEvents(JoinRide_button);
+                    JoinRide_button.Text = "Join the ride!";
+                    JoinRide_button.Click += 
+                        new EventHandler(JoinRide_joinTheRide_Click);
+                }
+                catch(Exception ex)
+                {
+                    // TODO: consider show the user a message 
+                    //or handle the exception in the right way
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please chose a specific group");
+            }
         }
 
         private void JoinRide_joinTheRide_Click(object sender, EventArgs e)
         {
+            handleJoinTheRideSubmission();
+        }
+
+        private void handleJoinTheRideSubmission()
+        {
+            Event chosenRideEvent = JoinRide_listBox.SelectedItem as Event;
+
+            if(chosenRideEvent != null)
+            {
+            }
+            else
+            {
+                MessageBox.Show("Please choose a ride!");
+            }
         }
 
         #endregion JoinRide 
