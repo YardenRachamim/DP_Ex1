@@ -16,6 +16,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
     public partial class FindPlaceForm : Form
     {
+        private Panel m_visiblePanel;
         private readonly MainForm r_MainForm;
         private readonly FacebookObjectCollection<User> r_FilteredOutFriend = new FacebookObjectCollection<User>();
         private const string k_SearchBoxLabel = "Name...";
@@ -25,15 +26,40 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             r_MainForm = i_MainForm;
             InitializeComponent();
+            initializeLocation();
             initializeFriendsList();
+            initializeListView();
+            initializeVisiblePanel();
+            r_MainForm.Hide();
             ShowDialog();
+        }
+
+        private void initializeLocation()
+        {
+            StartPosition = FormStartPosition.Manual;
+            Location = r_MainForm.Location;
+        }
+
+        private void initializeVisiblePanel()
+        {
+            m_visiblePanel = panelSelsectFriends;
+            panelPagesResults.Visible = false;
+        }
+
+        private void initializeListView()
+        {
+            listViewCommonPages.View = View.Details;
+            listViewCommonPages.FullRowSelect = true;
+            listViewCommonPages.GridLines = true;
+            listViewCommonPages.Columns.Add("Page Name", 125, HorizontalAlignment.Center);
+            listViewCommonPages.Columns.Add("Common Likes", -2, HorizontalAlignment.Center);
         }
 
         private void initializeFriendsList()
         {
             if (r_MainForm.Friends == null)
             {
-                r_MainForm.Friends = r_MainForm.LoggedInUser.Friends;
+                r_MainForm.Friends = LoggedInUser.GetLoggedInUser.Friends;
             }
 
             listBoxNotSelected.Items.Clear();
@@ -188,17 +214,55 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             writeToXMLLastFriendsList();
             findCommonPlacesLikedByAllFriends();
+            changeVisiblePanel(panelPagesResults);
+        }
+
+        private void changeVisiblePanel(Panel i_PanelToView)
+        {
+            m_visiblePanel.Visible = false;
+            m_visiblePanel = i_PanelToView;
+            m_visiblePanel.Visible = true;
         }
 
         private void findCommonPlacesLikedByAllFriends()
         {
-            FacebookObjectCollection<Page> allLikedPages = new FacebookObjectCollection<Page>();
+            CommonPages commonPages = new CommonPages();
+            List<KeyValuePair<Page, int>> sortedLikedPages;
 
-            foreach(string friendName in listBoxSelected.Items)
+            try
             {
-                User friendUser = getSelectedUserByName(friendName);
-                //continue here maayan
+                foreach (string friendName in listBoxSelected.Items)
+                {
+                    User friendUser = getSelectedUserByName(friendName);
+
+                    foreach (Page page in friendUser.LikedPages)
+                    {
+                        commonPages.Add(page);
+                    }
+                }
+
+                sortedLikedPages = commonPages.GetSortedPagesByCommonLikesAsPairs();
+                
+                /* //for Debug
+                sortedLikedPages =  new List<KeyValuePair<Page, int>>();
+                sortedLikedPages.Add(new KeyValuePair<Page, int>(new Page(), 5));
+                sortedLikedPages.Add(new KeyValuePair<Page, int>(new Page(), 7));
+                sortedLikedPages.Add(new KeyValuePair<Page, int>(new Page(), 8));
+                //end Debug */
+
+                foreach (KeyValuePair<Page, int> pagePair in sortedLikedPages)
+                {
+                    ListViewItem item = new ListViewItem(pagePair.Key.Name);
+                    item.SubItems.Add(pagePair.Value.ToString());
+                    listViewCommonPages.Items.Add(item);
+                }
+
             }
+            catch(Facebook.FacebookOAuthException e)
+            {
+                //Facebook "OAuthException -#100 - Pages Public Content Access requires either app secret proof or an app token"
+            }
+
         }
 
         private void writeToXMLLastFriendsList()
@@ -208,10 +272,14 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             {
                 XmlDocument xmlDoc = new XmlDocument();
                 XmlNode rootNode = xmlDoc.CreateElement("lastFriendsList");
+                xmlDoc.AppendChild(rootNode);
+
+
                 foreach (string friendName in listBoxSelected.Items)
                 {
-                    xmlDoc.AppendChild(rootNode);
+                    
                     XmlNode userNode = xmlDoc.CreateElement("friend");
+
                     userNode.InnerText = friendName;
                     rootNode.AppendChild(userNode);
                 }
@@ -220,7 +288,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             }
             catch (Exception e)
             {
-                //DoNothing TODO: leave it like this?
+                //DoNothing TODO: FIX is needed
             }
         }
 
@@ -235,6 +303,16 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                     sw.WriteLine("</lastFriendsList>");
                 }
             }
+        }
+
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            changeVisiblePanel(panelSelsectFriends);
+        }
+
+        private void FindPlaceForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            r_MainForm.Show();
         }
     }
 }
