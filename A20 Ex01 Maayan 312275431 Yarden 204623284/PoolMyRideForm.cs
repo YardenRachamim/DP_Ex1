@@ -206,11 +206,9 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                 Group chosenRideGroup = FacebookWrapper.FacebookService.GetObject(controlsData.GroupID);
                 string eventName = $"{r_LoggedInUser.Name} new Ride!";
                 string eventDescription = getDescription(controlsData);
-                Event groupRideEvent = chosenRideGroup.CreateEvent_DeprecatedSinceV2(eventName, 
+                chosenRideGroup.CreateEvent_DeprecatedSinceV2(eventName, 
                     controlsData.RideDate,
                     i_Description: eventDescription);
-
-                r_DBHandler.SaveEventToGroupRides(chosenRideGroup.Id, groupRideEvent.Id);
             }
             catch(Exception ex)
             {
@@ -293,15 +291,11 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                 try
                 {
                     string groupID = m_UserGroupNameIDMapping[chosenGroupName];
-                    List<string> groupRideEventsIDs =
-                        r_DBHandler.FetchAllGroupRides(groupID);
+                    Group chosenGroup = FacebookWrapper.FacebookService.GetObject(groupID);
 
-                    foreach (string groupRideEventID in groupRideEventsIDs)
+                    foreach (Event groupRideEvent in chosenGroup.Events)
                     {
-                        Event rideEvent =
-                            FacebookWrapper.FacebookService.GetObject(groupRideEventID);
-
-                        JoinRide_listBox.Items.Add(rideEvent);
+                        JoinRide_listBox.Items.Add(groupRideEvent);
                     }
 
                     MyUtils.RemoveAllClickEvents(JoinRide_button);
@@ -332,6 +326,32 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
             if(chosenRideEvent != null)
             {
+                List<User> usersToInvite = new List<User>();
+
+                usersToInvite.Add(r_LoggedInUser);
+
+                try
+                {
+                    string rideEventOwnerName = chosenRideEvent.Owner.Name;
+                    string rideEventName = chosenRideEvent.Name;
+                    bool isUserInvited = chosenRideEvent.InviteUsers(usersToInvite);
+
+                    if (isUserInvited)
+                    {
+                        chosenRideEvent.Respond(Event.eRsvpType.Attending);
+                    }
+                    else
+                    {
+                        // TODO: throw the right exception here
+                        throw new Exception("Can't send invitation to the user");
+                    }
+
+                    MessageBox.Show($"You successfully join to {rideEventName}, please contact {rideEventOwnerName} for more details");
+                }catch(Exception ex)
+                {
+                    // TODO: catch the right exception and show the right msg to the user
+                    MessageBox.Show(ex.Message);
+                }
             }
             else
             {
@@ -341,66 +361,61 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         #endregion JoinRide 
 
-        //#region FindRide
-        //private void findRideButton_Click(object sender, EventArgs e)
-        //{
-        //    initializeRideGroupsPanelComponent();
-        //    visualizePanel(RideGroups_panel);
-        //}
+        #region RideGroups
+        private void findRideButton_Click(object sender, EventArgs e)
+        {
+            initializeRideGroupsPanelComponent();
+            visualizePanel(RideGroups_panel);
+        }
 
-        //private void initializeRideGroupsPanelComponent()
-        //{
-        //    MyUtils.RemoveAllClickEvents(RideGroups_new);
-        //    MyUtils.RemoveAllClickEvents(RideGroups_join);
-        //    RideGroups_new.Click += new EventHandler(RideGroups_new_Click);
-        //    RideGroups_join.Click += new EventHandler(RideGroups_join_Click);
+        private void initializeRideGroupsPanelComponent()
+        {
+            initListBox();
+        }
 
-        //    try
-        //    {
-        //        List<RideGroup> allRideGroups = r_DBHandler.FetchAllRideGroups();
-        //        RideGroups_listBox.Items.Clear();
+        private void initListBox()
+        {
+            try
+            {
+                List<string> userGroupRideIDs = r_DBHandler.FetchAllUserRideGroupsIDs(r_LoggedInUser.Id);
 
-        //        foreach (RideGroup rideGroup in allRideGroups)
-        //        {
-        //            RideGroups_listBox.Items.Add(rideGroup);
-        //        }
+                RideGroups_listBox.Items.Clear();
 
-        //        RideGroups_listBox.Visible = true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // TODO: change to the right Exception type
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
+                foreach (string groupRideID in userGroupRideIDs)
+                {
+                    Group userGroupRide = FacebookWrapper.FacebookService.GetObject(groupRideID);
 
-        //private void RideGroups_new_Click(object sender, EventArgs e)
-        //{
-        //    throw new NotImplementedException();
-        //}
+                    RideGroups_listBox.Items.Add(userGroupRide);
+                }
+            }catch(Exception ex)
+            {
+                // TODO: handle the exception
+            }
+        }
 
-        //private void RideGroups_join_Click(object sender, EventArgs e)
-        //{
-        //    RideGroup rideGroupToJoin = RideGroups_listBox.SelectedItem as RideGroup;
+        private void rideGroups_new_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
-        //    if (rideGroupToJoin != null)
-        //    {
-        //        try
-        //        {
-        //            r_DBHandler.AddUserToRideGroup(r_LoggedInUser, rideGroupToJoin);
-        //            MessageBox.Show($"You successfully joined to '{rideGroupToJoin}'");
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            // TODO: change to the right Exception type
-        //            MessageBox.Show(ex.Message);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Please select a group to join to");
-        //    }
-        //}
-        //#endregion FindRide
+        private void rideGroups_join_Click(object sender, EventArgs e)
+        {
+            handleJoinRideGroupSumbission();
+        }
+
+        private void handleJoinRideGroupSumbission()
+        {
+            Group chosenGroup = JoinRide_listBox.SelectedItem as Group;
+            
+            if(chosenGroup != null)
+            {
+                
+            }
+            else
+            {
+                MessageBox.Show("Please chose a group to join!");
+            }
+        }
+        #endregion RideGroups
     }
 }

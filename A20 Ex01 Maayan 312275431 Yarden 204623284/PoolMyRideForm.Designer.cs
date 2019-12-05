@@ -97,6 +97,7 @@
             this.RideGropButton.TabIndex = 3;
             this.RideGropButton.Text = "Ride Groups";
             this.RideGropButton.UseVisualStyleBackColor = true;
+            this.RideGropButton.Click += new System.EventHandler(this.findRideButton_Click);
             // 
             // NewRide_panel
             // 
