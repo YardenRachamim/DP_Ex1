@@ -60,7 +60,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             if (r_MainForm.Friends == null)
             {
-                r_MainForm.Friends = LoggedInUser.GetLoggedInUser.Friends;
+                r_MainForm.Friends = UIManager.GetLoggedInUser.Friends;
             }
 
             listBoxNotSelected.Items.Clear();
@@ -229,7 +229,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             List<KeyValuePair<Page, int>> sortedLikedPages;
 
             try
-            {
+            { // TODO: add user pages
                 foreach (string friendName in listBoxSelected.Items)
                 {
                     User friendUser = getSelectedUserByName(friendName);

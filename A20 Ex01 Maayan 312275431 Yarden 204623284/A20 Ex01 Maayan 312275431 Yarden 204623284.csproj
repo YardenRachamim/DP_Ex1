@@ -59,7 +59,7 @@
     <Compile Include="FindPlaceForm.Designer.cs">
       <DependentUpon>FindPlaceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoggedInUser.cs" />
+    <Compile Include="UIManager.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

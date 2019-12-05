@@ -22,7 +22,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void fetchUserPicture()
         {
-            LoggedInUserPictureBox.LoadAsync(LoggedInUser.GetLoggedInUser.PictureNormalURL);
+            LoggedInUserPictureBox.LoadAsync(UIManager.GetLoggedInUser.PictureNormalURL);
         }
 
         public void StartForm()
@@ -34,13 +34,13 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void fetchUserDetails()
         {
-            listBoxDetails.Items.Add("First Name: " + LoggedInUser.GetLoggedInUser.FirstName);
-            listBoxDetails.Items.Add("Last Name: " + LoggedInUser.GetLoggedInUser.LastName);
-            listBoxDetails.Items.Add("Birthday: " + LoggedInUser.GetLoggedInUser.Birthday);
-            listBoxDetails.Items.Add("Hometown: " + LoggedInUser.GetLoggedInUser.Hometown);
-            listBoxDetails.Items.Add("RelationshipStatus: " + LoggedInUser.GetLoggedInUser.RelationshipStatus);
-            listBoxDetails.Items.Add("Religion: " + LoggedInUser.GetLoggedInUser.Religion);
-            listBoxDetails.Items.Add("TimeZone: " + LoggedInUser.GetLoggedInUser.TimeZone);
+            listBoxDetails.Items.Add("First Name: " + UIManager.GetLoggedInUser.FirstName);
+            listBoxDetails.Items.Add("Last Name: " + UIManager.GetLoggedInUser.LastName);
+            listBoxDetails.Items.Add("Birthday: " + UIManager.GetLoggedInUser.Birthday);
+            listBoxDetails.Items.Add("Hometown: " + UIManager.GetLoggedInUser.Hometown);
+            listBoxDetails.Items.Add("RelationshipStatus: " + UIManager.GetLoggedInUser.RelationshipStatus);
+            listBoxDetails.Items.Add("Religion: " + UIManager.GetLoggedInUser.Religion);
+            listBoxDetails.Items.Add("TimeZone: " + UIManager.GetLoggedInUser.TimeZone);
         }
 
         private void checkBoxPosts_CheckedChanged(object sender, EventArgs e)
@@ -65,7 +65,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             if (m_Posts == null)
             {
-                m_Posts = LoggedInUser.GetLoggedInUser.Posts;
+                m_Posts = UIManager.GetLoggedInUser.Posts;
             }
 
             foreach (Post post in m_Posts)
@@ -107,7 +107,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             if (m_Albums == null)
             {
-                m_Albums = LoggedInUser.GetLoggedInUser.Albums;
+                m_Albums = UIManager.GetLoggedInUser.Albums;
             }
 
             foreach (Album album in m_Albums)
@@ -146,7 +146,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             if (Friends == null)
             {
-                Friends = LoggedInUser.GetLoggedInUser.Friends;
+                Friends = UIManager.GetLoggedInUser.Friends;
             }
 
             foreach (User friend in Friends)
@@ -194,7 +194,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void resetAllUserData()
         {
-            LoggedInUser.RestartLoggedInUser();
+            UIManager.RestartLoggedInUser();
             m_Albums = null;
             m_Posts = null;
             Friends = null;

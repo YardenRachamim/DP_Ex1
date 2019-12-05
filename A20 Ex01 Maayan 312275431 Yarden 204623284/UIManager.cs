@@ -6,12 +6,12 @@ using System.Text;
 
 namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
-    public sealed class LoggedInUser
+    public sealed class UIManager
     {
         private static User sm_LoggedInUser = null;
         private static readonly object srm_Padlock = new object();
 
-        private LoggedInUser()
+        private UIManager()
         {
 
         }

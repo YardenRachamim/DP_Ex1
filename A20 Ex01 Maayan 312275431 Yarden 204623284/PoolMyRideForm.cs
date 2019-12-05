@@ -19,7 +19,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         // Consider what will happen if user not belong to any group!
 
         private Panel m_CurrentVisiblePanel;
-        private readonly User r_LoggedInUser = LoggedInUser.GetLoggedInUser;
+        private readonly User r_LoggedInUser = UIManager.GetLoggedInUser;
         private readonly DBHandler r_DBHandler = DBHandler.GetInstance;
         private Dictionary<string, string> m_UserGroupNameIDMapping = new Dictionary<string, string>();
         private readonly List<Group> r_UserRideGroups = new List<Group>();
