@@ -182,7 +182,7 @@
             this.listViewCommonPages.HideSelection = false;
             this.listViewCommonPages.Location = new System.Drawing.Point(19, 51);
             this.listViewCommonPages.Name = "listViewCommonPages";
-            this.listViewCommonPages.Size = new System.Drawing.Size(283, 382);
+            this.listViewCommonPages.Size = new System.Drawing.Size(680, 382);
             this.listViewCommonPages.TabIndex = 14;
             this.listViewCommonPages.UseCompatibleStateImageBehavior = false;
             // 
@@ -193,12 +193,12 @@
             this.panelPagesResults.Controls.Add(this.label1);
             this.panelPagesResults.Location = new System.Drawing.Point(12, 12);
             this.panelPagesResults.Name = "panelPagesResults";
-            this.panelPagesResults.Size = new System.Drawing.Size(316, 480);
+            this.panelPagesResults.Size = new System.Drawing.Size(755, 480);
             this.panelPagesResults.TabIndex = 13;
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(140, 445);
+            this.buttonBack.Location = new System.Drawing.Point(19, 454);
             this.buttonBack.Name = "buttonBack";
             this.buttonBack.Size = new System.Drawing.Size(75, 23);
             this.buttonBack.TabIndex = 15;
@@ -211,8 +211,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 506);
-            this.Controls.Add(this.panelSelsectFriends);
             this.Controls.Add(this.panelPagesResults);
+            this.Controls.Add(this.panelSelsectFriends);
             this.Name = "FindPlaceForm";
             this.Text = "Find places to hang out with close friends";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FindPlaceForm_FormClosing);

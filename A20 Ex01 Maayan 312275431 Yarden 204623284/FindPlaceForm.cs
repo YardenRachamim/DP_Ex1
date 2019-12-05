@@ -52,25 +52,25 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             listViewCommonPages.View = View.Details;
             listViewCommonPages.FullRowSelect = true;
             listViewCommonPages.GridLines = true;
-            listViewCommonPages.Columns.Add("Page Name", 125, HorizontalAlignment.Center);
+            listViewCommonPages.Columns.Add("Page Name", 300, HorizontalAlignment.Center);
             listViewCommonPages.Columns.Add("Common Likes", -2, HorizontalAlignment.Center);
         }
 
         private void initializeFriendsList()
         {
-            if (r_MainForm.Friends == null)
+            if (UserDataManager.Instance.Friends == null)
             {
-                r_MainForm.Friends = UIManager.GetLoggedInUser.Friends;
+                UserDataManager.Instance.Friends = UserDataManager.Instance.LoggedInUser.Friends;
             }
 
             listBoxNotSelected.Items.Clear();
-            foreach (User friend in r_MainForm.Friends)
+            foreach (User friend in UserDataManager.Instance.Friends)
             {
                 listBoxNotSelected.Items.Add(friend.Name);
                 friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
             }
 
-            if (r_MainForm.Friends.Count == 0)
+            if (UserDataManager.Instance.Friends.Count == 0)
             {
                 MessageBox.Show("No Friends to retrieve...");
             }
@@ -118,7 +118,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         private User getSelectedUserByName(string i_UserNameToFind)
         {
             User foundUser = null;
-            foreach (User user in r_MainForm.Friends)
+            foreach (User user in UserDataManager.Instance.Friends)
             {
                 if (user.Name == i_UserNameToFind)
                 {
@@ -135,7 +135,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
             listBoxNotSelected.Items.Clear();
 
-            foreach (User friend in r_MainForm.Friends)
+            foreach (User friend in UserDataManager.Instance.Friends)
             {
                 if (isContains(friend.Name, textThatChanged))
                 {
