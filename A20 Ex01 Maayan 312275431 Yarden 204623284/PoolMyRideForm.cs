@@ -395,7 +395,9 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void rideGroups_new_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            FriendList f = UserDataManager.Instance.LoggedInUser.CreateFriendList("");
+
         }
 
         private void rideGroups_join_Click(object sender, EventArgs e)

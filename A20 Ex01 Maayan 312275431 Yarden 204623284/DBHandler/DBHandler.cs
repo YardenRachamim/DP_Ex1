@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using System.Xml;
 
 namespace DataHandler
@@ -73,7 +72,7 @@ namespace DataHandler
             }
         }
 
-        internal void WritrToXMLLastFreindsList(string i_FilePath, ListBox.ObjectCollection i_Items)
+        internal void WritrToXMLLastFreindsList(string i_FilePath, List<string> i_Items)
         {
             createFileIfNotExist(i_FilePath);
             try

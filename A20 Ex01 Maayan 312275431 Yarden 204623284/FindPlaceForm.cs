@@ -266,7 +266,9 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void writeToXMLLastFriendsList()
         {
-            DBHandler.GetInstance.WritrToXMLLastFreindsList(k_FileLastFriendsListPath, listBoxSelected.Items);
+            List<string> selectedFriends = listBoxSelected.Items.Cast<string>().ToList();
+
+            DBHandler.GetInstance.WritrToXMLLastFreindsList(k_FileLastFriendsListPath, selectedFriends);
         }
 
 
