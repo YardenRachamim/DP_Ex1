@@ -8,7 +8,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
     public sealed class UserDataManager
     {
-        private static UserDataManager s_UIManager = null;
+        private static UserDataManager s_UserDataManager = null;
         private static readonly object sr_Padlock = new object();
 
         private UserDataManager()
@@ -20,17 +20,17 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             get
             {
-                if (s_UIManager == null)
+                if (s_UserDataManager == null)
                 {
                     lock (sr_Padlock)
                     {
-                        if (s_UIManager == null)
+                        if (s_UserDataManager == null)
                         {
-                            s_UIManager = new UserDataManager();
+                            s_UserDataManager = new UserDataManager();
                         }
                     }
                 }
-                return s_UIManager;
+                return s_UserDataManager;
             }
         }
         
@@ -45,7 +45,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         public void RestartLoggedInUser()
         {
-            s_UIManager = null;
+            s_UserDataManager = null;
         }
     }
 }

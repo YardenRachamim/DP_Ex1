@@ -86,7 +86,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonLogin_Click(object sender, EventArgs e)
         {
             loginAndInit();
         }

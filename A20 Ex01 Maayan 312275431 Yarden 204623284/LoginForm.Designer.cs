@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonLogin = new System.Windows.Forms.Button();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // buttonLogin
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.button1.Location = new System.Drawing.Point(151, 53);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(294, 45);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Login with Facebook";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.buttonLogin.Location = new System.Drawing.Point(151, 53);
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Size = new System.Drawing.Size(294, 45);
+            this.buttonLogin.TabIndex = 0;
+            this.buttonLogin.Text = "Login with Facebook";
+            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
             // directorySearcher1
             // 
@@ -67,7 +67,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(619, 457);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonLogin);
             this.Name = "LoginForm";
             this.Text = "Loggin";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -77,7 +77,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonLogin;
         private System.DirectoryServices.DirectorySearcher directorySearcher1;
         private System.Windows.Forms.PictureBox pictureBox1;
     }

@@ -215,7 +215,6 @@
             this.Controls.Add(this.panelSelsectFriends);
             this.Name = "FindPlaceForm";
             this.Text = "Find places to hang out with close friends";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FindPlaceForm_FormClosing);
             this.panelSelsectFriends.ResumeLayout(false);
             this.panelSelsectFriends.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClearSearch)).EndInit();
