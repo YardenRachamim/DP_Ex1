@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Utils
 {
-    public class MyUtils
+    public class WinFormUtils
     {
         public static void RemoveAllClickEvents(Button i_Button)
         {

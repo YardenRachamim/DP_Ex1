@@ -68,7 +68,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                 else if(control is Button)
                 {
                     Button button = (Button)control;
-                    MyUtils.RemoveAllClickEvents(button);
+                    WinFormUtils.RemoveAllClickEvents(button);
                 }
             }
         }
@@ -298,7 +298,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                         JoinRide_listBox.Items.Add(groupRideEvent);
                     }
 
-                    MyUtils.RemoveAllClickEvents(JoinRide_button);
+                    WinFormUtils.RemoveAllClickEvents(JoinRide_button);
                     JoinRide_button.Text = "Join the ride!";
                     JoinRide_button.Click += 
                         new EventHandler(JoinRide_joinTheRide_Click);
