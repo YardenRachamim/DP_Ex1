@@ -18,27 +18,16 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
     public partial class FindPlaceForm : Form
     {
         private Panel m_visiblePanel;
-        private readonly MainForm r_MainForm;
-        private readonly FacebookObjectCollection<User> r_FilteredOutFriend = new FacebookObjectCollection<User>();
         private const string k_SearchBoxLabel = "Name...";
-        string k_FileLastFriendsListPath = "./DB_LastCloseFriend.XML";
+        private const string k_FileLastFriendsListPath = "./DB_LastCloseFriend.XML";
 
-        public FindPlaceForm(MainForm i_MainForm)
+        public FindPlaceForm()
         {
-            r_MainForm = i_MainForm;
             InitializeComponent();
-            initializeLocation();
             initializeFriendsList();
             initializeListView();
             initializeVisiblePanel();
-            r_MainForm.Hide();
             ShowDialog();
-        }
-
-        private void initializeLocation()
-        {
-            StartPosition = FormStartPosition.Manual;
-            Location = r_MainForm.Location;
         }
 
         private void initializeVisiblePanel()
@@ -274,11 +263,6 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         private void buttonBack_Click(object sender, EventArgs e)
         {
             changeVisiblePanel(panelSelsectFriends);
-        }
-
-        private void FindPlaceForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            r_MainForm.Show();
         }
     }
 }

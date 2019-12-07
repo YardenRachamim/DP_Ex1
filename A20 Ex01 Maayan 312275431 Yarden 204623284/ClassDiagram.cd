@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="A20_Ex01_Maayan_312275431_Yarden_204623284.MainForm">
+    <Position X="0.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAAUKDBBBgAQCAGAoAQCBHIgFAAAIAgAAQAggAA=</HashCode>
+      <FileName>MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="A20_Ex01_Maayan_312275431_Yarden_204623284.LoginForm">
+    <Position X="3.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAIABAABCAAAAgAAACAAAASAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>LoginForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="A20_Ex01_Maayan_312275431_Yarden_204623284.PoolMyRideForm">
+    <Position X="6.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>IAQDCIIAHCAhEggEMACCqAEChBAyVJZCElAwJBBAUAA=</HashCode>
+      <FileName>PoolMyRideForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="A20_Ex01_Maayan_312275431_Yarden_204623284.FindPlaceForm">
+    <Position X="10.5" Y="0.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AACQAAAAADQRgBAADAOALkCCAEEBAKgCDQIBAABAAgA=</HashCode>
+      <FileName>FindPlaceForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="A20_Ex01_Maayan_312275431_Yarden_204623284.UserDataManager">
+    <Position X="3.5" Y="4" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAABDAEAQAAAAAAAAAAAQAAACAAAAAA=</HashCode>
+      <FileName>UserDataManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Utils.MyUtils">
+    <Position X="3.5" Y="7.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Utils\MyUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="A20_Ex01_Maayan_312275431_Yarden_204623284.NewRideConrolsData">
+    <Position X="0.5" Y="9" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAIAAAAAiAgAAACAAAAAAAAA=</HashCode>
+      <FileName>PoolMyRide\NewRideConrolsData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataHandler.DBHandler">
+    <Position X="3.75" Y="11" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAACABQAAABAAAAAAAAAAAEEAAAAA=</HashCode>
+      <FileName>DBHandler\DBHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="A20_Ex01_Maayan_312275431_Yarden_204623284.CommonPages">
+    <Position X="0.5" Y="12" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EAIAAAAAAAAAAAAAAAgABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CommonPages\CommonPages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="A20_Ex01_Maayan_312275431_Yarden_204623284.ePoolMyRidyCityOptions">
+    <Position X="3.75" Y="9" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAgAAAAAAAABAAAAAAAAAAAAAAAAEAAEA=</HashCode>
+      <FileName>PoolMyRide\PoolMyRidyCityOptions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -25,19 +25,6 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             }
         }
 
-        public FacebookObjectCollection<Page> GetSortedPagesByCommonLikes()
-        {
-            List<KeyValuePair<Page,int>> pageList =  m_PageDictionary.ToList();
-            pageList = pageList.OrderByDescending(i => i.Value).ToList();
-            FacebookObjectCollection<Page> orderListToReturn = new FacebookObjectCollection<Page>();
-
-            foreach (KeyValuePair<Page, int> pair in pageList)
-            {
-                orderListToReturn.Add(pair.Key);
-            }
-            return orderListToReturn;
-        }
-
         public List<KeyValuePair<Page, int>> GetSortedPagesByCommonLikesAsPairs()
         {
             List<KeyValuePair<Page, int>> pageList = m_PageDictionary.ToList();

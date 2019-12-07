@@ -10,9 +10,11 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
        // private FacebookObjectCollection<Post> UIManager.Instance.Posts;
        // private FacebookObjectCollection<Album> UIManager.Instance.Albums;
         private readonly LoginForm r_LoginForm;
+        private readonly UserDataManager r_UserDataManager;
 
         public MainForm()
         {
+            r_UserDataManager = UserDataManager.Instance;
             InitializeComponent();
             r_LoginForm = new LoginForm(this);
             r_LoginForm.ShowDialog();
@@ -22,7 +24,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void fetchUserPicture()
         {
-            LoggedInUserPictureBox.LoadAsync(UserDataManager.Instance.LoggedInUser.PictureNormalURL);
+            LoggedInUserPictureBox.LoadAsync(r_UserDataManager.LoggedInUser.PictureNormalURL);
         }
 
         public void StartForm()
@@ -34,13 +36,13 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void fetchUserDetails()
         {
-            listBoxDetails.Items.Add("First Name: " + UserDataManager.Instance.LoggedInUser.FirstName);
-            listBoxDetails.Items.Add("Last Name: " + UserDataManager.Instance.LoggedInUser.LastName);
-            listBoxDetails.Items.Add("Birthday: " + UserDataManager.Instance.LoggedInUser.Birthday);
-            listBoxDetails.Items.Add("Hometown: " + UserDataManager.Instance.LoggedInUser.Hometown);
-            listBoxDetails.Items.Add("RelationshipStatus: " + UserDataManager.Instance.LoggedInUser.RelationshipStatus);
-            listBoxDetails.Items.Add("Religion: " + UserDataManager.Instance.LoggedInUser.Religion);
-            listBoxDetails.Items.Add("TimeZone: " + UserDataManager.Instance.LoggedInUser.TimeZone);
+            listBoxDetails.Items.Add("First Name: " + r_UserDataManager.LoggedInUser.FirstName);
+            listBoxDetails.Items.Add("Last Name: " + r_UserDataManager.LoggedInUser.LastName);
+            listBoxDetails.Items.Add("Birthday: " + r_UserDataManager.LoggedInUser.Birthday);
+            listBoxDetails.Items.Add("Hometown: " + r_UserDataManager.LoggedInUser.Hometown);
+            listBoxDetails.Items.Add("RelationshipStatus: " + r_UserDataManager.LoggedInUser.RelationshipStatus);
+            listBoxDetails.Items.Add("Religion: " + r_UserDataManager.LoggedInUser.Religion);
+            listBoxDetails.Items.Add("TimeZone: " + r_UserDataManager.LoggedInUser.TimeZone);
         }
 
         private void checkBoxPosts_CheckedChanged(object sender, EventArgs e)
@@ -63,12 +65,12 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void fetchUserPosts()
         {
-            if (UserDataManager.Instance.Posts == null)
+            if (r_UserDataManager.Posts == null)
             {
-                UserDataManager.Instance.Posts = UserDataManager.Instance.LoggedInUser.Posts;
+                r_UserDataManager.Posts = r_UserDataManager.LoggedInUser.Posts;
             }
 
-            foreach (Post post in UserDataManager.Instance.Posts)
+            foreach (Post post in r_UserDataManager.Posts)
             {
                 if (post.Message != null)
                 {
@@ -84,9 +86,9 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                 }
             }
 
-            if (UserDataManager.Instance.Posts.Count == 0)
+            if (r_UserDataManager.Posts.Count == 0)
             {
-                listBoxAlbums.Items.Add("No Posts to retrieve...");
+                listBoxPosts.Items.Add("No Posts to retrieve...");
             }
         }
 
@@ -105,12 +107,12 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void fetchUserAlbums()
         {
-            if (UserDataManager.Instance.Albums == null)
+            if (r_UserDataManager.Albums == null)
             {
-                UserDataManager.Instance.Albums = UserDataManager.Instance.LoggedInUser.Albums;
+                r_UserDataManager.Albums = r_UserDataManager.LoggedInUser.Albums;
             }
 
-            foreach (Album album in UserDataManager.Instance.Albums)
+            foreach (Album album in r_UserDataManager.Albums)
             {
                 if (album.Name != null)
                 {
@@ -118,7 +120,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                 }
             }
 
-            if (UserDataManager.Instance.Albums.Count == 0)
+            if (r_UserDataManager.Albums.Count == 0)
             {
                 listBoxAlbums.Items.Add("No Albums to retrieve...");
             }
@@ -144,18 +146,18 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void fetchUserFriends()
         {
-            if (UserDataManager.Instance.Friends == null)
+            if (r_UserDataManager.Friends == null)
             {
-                UserDataManager.Instance.Friends = UserDataManager.Instance.LoggedInUser.Friends;
+                r_UserDataManager.Friends = r_UserDataManager.LoggedInUser.Friends;
             }
 
-            foreach (User friend in UserDataManager.Instance.Friends)
+            foreach (User friend in r_UserDataManager.Friends)
             {
                 listBoxFriends.Items.Add(friend.Name);
                 friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
             }
 
-            if (UserDataManager.Instance.Friends.Count == 0)
+            if (r_UserDataManager.Friends.Count == 0)
             {
                 listBoxFriends.Items.Add("No Friends to retrieve...");
             }
@@ -168,7 +170,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void buttonFindPlaces_Click(object sender, EventArgs e)
         {
-            FindPlaceForm findPlaceForm = new FindPlaceForm(this);
+            FindPlaceForm findPlaceForm = new FindPlaceForm();
         }
 
         private void buttonPoolMyRide_Click(object sender, EventArgs e)
@@ -216,7 +218,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void resetAllUserData()
         {
-            UserDataManager.Instance.RestartLoggedInUser();
+            r_UserDataManager.RestartLoggedInUser();
         }
         #endregion Logout
 
