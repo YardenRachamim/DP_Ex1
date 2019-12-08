@@ -218,7 +218,12 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             List<KeyValuePair<Page, int>> sortedLikedPages;
 
             try
-            { // TODO: add user pages
+            { 
+                foreach (Page page in UserDataManager.Instance.LoggedInUser.LikedPages)
+                {
+                    commonPages.Add(page);
+                }
+
                 foreach (string friendName in listBoxSelected.Items)
                 {
                     User friendUser = getSelectedUserByName(friendName);
@@ -230,13 +235,6 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                 }
 
                 sortedLikedPages = commonPages.GetSortedPagesByCommonLikesAsPairs();
-                
-                /* //for Debug
-                sortedLikedPages =  new List<KeyValuePair<Page, int>>();
-                sortedLikedPages.Add(new KeyValuePair<Page, int>(new Page(), 5));
-                sortedLikedPages.Add(new KeyValuePair<Page, int>(new Page(), 7));
-                sortedLikedPages.Add(new KeyValuePair<Page, int>(new Page(), 8));
-                //end Debug */
 
                 foreach (KeyValuePair<Page, int> pagePair in sortedLikedPages)
                 {
