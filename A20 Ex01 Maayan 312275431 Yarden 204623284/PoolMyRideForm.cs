@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using Utils;
+using PoolMyRide;
 
 namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
@@ -21,8 +22,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         private Panel m_CurrentVisiblePanel;
         private readonly User r_LoggedInUser = UserDataManager.Instance.LoggedInUser;
         private readonly DBHandler r_DBHandler = DBHandler.GetInstance;
-        private Dictionary<string, string> m_UserGroupNameIDMapping = new Dictionary<string, string>();
-        private readonly List<Group> r_UserRideGroups = new List<Group>();
+        private Dictionary<string, RideGroup> m_UserGroupNameIDMapping = new Dictionary<string, RideGroup>();
 
         public PoolMyRideForm(MainForm i_MainForm)
         {
@@ -32,45 +32,6 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             loadUserProfilePicture();
             initializeNewRidePanelComponent();
             initalizePanelVisualization();
-        }
-
-        private void clearAllPanelControls(Panel i_panel)
-        {
-            Control.ControlCollection panelControls = i_panel.Controls;
-
-            foreach(Control control in panelControls)
-            {
-                if (control is TextBox)
-                {
-                    TextBox txtbox = (TextBox) control;
-                    txtbox.Text = string.Empty;
-                }
-                else if (control is CheckBox)
-                {
-                    CheckBox chkbox = (CheckBox) control;
-                    chkbox.Checked = false;
-                }
-                else if (control is ListBox)
-                {
-                    ListBox listBox = (ListBox)control;
-                    listBox.Items.Clear();
-                }
-                else if (control is DateTimePicker)
-                {
-                    DateTimePicker dtp = (DateTimePicker) control;
-                    dtp.Value = DateTime.Now;
-                }
-                else if (control is ComboBox)
-                {
-                    ComboBox comboBox = (ComboBox) control;
-                    comboBox.Items.Clear();
-                }
-                else if(control is Button)
-                {
-                    Button button = (Button)control;
-                    WinFormUtils.RemoveAllClickEvents(button);
-                }
-            }
         }
 
         #region Fetch user data
@@ -88,10 +49,44 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
                 foreach (string ID in rideGroupIDs)
                 {
-                    Group singleRideGroup = FacebookWrapper.FacebookService.GetObject(ID);
+                    FacebookObject singleRideGroup = null;
 
-                    r_UserRideGroups.Add(singleRideGroup);
-                    m_UserGroupNameIDMapping[singleRideGroup.Name] = singleRideGroup.Id;
+                    try
+                    {
+                        singleRideGroup = FacebookWrapper.FacebookService.GetObject(ID);
+                    }catch(Exception ex)
+                    {
+                        continue;
+                    }
+
+                    string name = "";
+                    RideGroup rideGroup = null;
+
+                    if (singleRideGroup is Group)
+                    {
+                        Group group = singleRideGroup as Group;
+                        rideGroup = new RideGroup(group.Id, group.Name);
+                        rideGroup.AddEvents(group.Events);
+                        name = group.Name;
+                    }
+                    else if(singleRideGroup is FriendList)
+                    {
+                        FriendList friendList = singleRideGroup as FriendList;
+
+                        rideGroup = new RideGroup(friendList.Name);
+
+                        List<string> eventIds = r_DBHandler.FetchAllGroupRideEvents(friendList.Id);
+
+                        foreach (string eventId in eventIds)
+                        {
+                            Event friendListEvent = FacebookWrapper.FacebookService.GetObject(eventId);
+                            rideGroup.AddEvent(friendListEvent);
+                        }
+
+                        name = friendList.Name;
+                    }
+
+                    m_UserGroupNameIDMapping[name] = rideGroup;
                 }
             }
             catch (Exception ex)
@@ -140,7 +135,9 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void initializeNewRidePanelComponent()
         {
-            clearAllPanelControls(NewRide_panel);
+            Control.ControlCollection panelControls = NewRide_panel.Controls;
+
+            WinFormUtils.ClearAllControlsFromAGivenList(panelControls);
             NewRide_submitButton.Click += new EventHandler(newRideSubmitButton_Click);
             initNewRideComboBox();
         }
@@ -176,9 +173,9 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             if(m_UserGroupNameIDMapping != null && m_UserGroupNameIDMapping.Count > 0)
             {
-                foreach(string rideGroupName in m_UserGroupNameIDMapping.Keys)
+                foreach(RideGroup rideGroupName in m_UserGroupNameIDMapping.Values)
                 {
-                    i_ComboBox.Items.Add(rideGroupName);
+                    i_ComboBox.Items.Add(rideGroupName.Name);
                 }
             }
         }
@@ -202,13 +199,16 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
         {
             try
             {
-                NewRideConrolsData controlsData = fetchNewRidePanelConrolersData();
-                Group chosenRideGroup = FacebookWrapper.FacebookService.GetObject(controlsData.GroupID);
+                NewRide controlsData = fetchNewRidePanelConrolersData();
+                RideGroup rideGroup = m_UserGroupNameIDMapping[controlsData.GroupID];
+                //Group chosenRideFBGroup = FacebookWrapper.FacebookService.GetObject(controlsData.GroupID); 
                 string eventName = $"{r_LoggedInUser.Name} new Ride!";
                 string eventDescription = getDescription(controlsData);
-                chosenRideGroup.CreateEvent_DeprecatedSinceV2(eventName, 
+                Event eventRide = rideGroup.CreateEvent(r_LoggedInUser, eventName,
                     controlsData.RideDate,
                     i_Description: eventDescription);
+
+                r_DBHandler.SaveEventToGroupRide(rideGroup.Id, eventRide.Id);
             }
             catch(Exception ex)
             {
@@ -216,7 +216,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             }
         }
 
-        private string getDescription(NewRideConrolsData i_ControlsData)
+        private string getDescription(NewRide i_ControlsData)
         {
             StringBuilder description = new StringBuilder();
 
@@ -235,16 +235,16 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             return description.ToString();
         }
 
-        private NewRideConrolsData fetchNewRidePanelConrolersData()
+        private NewRide fetchNewRidePanelConrolersData()
         {
             Enum.TryParse(NewRide_fromComboBox.Text, out ePoolMyRidyCityOptions cityFrom);
             Enum.TryParse(NewRide_toComboBox.Text, out ePoolMyRidyCityOptions cityTo);
             DateTime rideDate = NewRide_dateTimePicker.Value;
             string groupName = NewRide_groupComboBox.Text;
-            string groupID = m_UserGroupNameIDMapping[groupName];
+            string groupID = m_UserGroupNameIDMapping[groupName].Id;
             bool isUserDriver = NewRide_isDriverCheckBox.Checked;
 
-            return new NewRideConrolsData(cityFrom, cityTo, rideDate, groupID, isUserDriver);
+            return new NewRide(cityFrom, cityTo, rideDate, groupID, isUserDriver);
         }
         #endregion NewRide
 
@@ -257,7 +257,9 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void initializeJoinRidePanelComponent()
         {
-            clearAllPanelControls(JoinRide_panel);
+            Control.ControlCollection panelControls = JoinRide_panel.Controls;
+
+            WinFormUtils.ClearAllControlsFromAGivenList(panelControls);
             JoinRide_button.Click += new EventHandler(JoinRide_availableGroup_Click);
             JoinRide_button.Text = "Show Available Rides";
 
@@ -290,8 +292,8 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
                 try
                 {
-                    string groupID = m_UserGroupNameIDMapping[chosenGroupName];
-                    Group chosenGroup = FacebookWrapper.FacebookService.GetObject(groupID);
+                    RideGroup chosenGroup = m_UserGroupNameIDMapping[chosenGroupName];
+                    //Group chosenGroup = FacebookWrapper.FacebookService.GetObject(groupID);
 
                     foreach (Event groupRideEvent in chosenGroup.Events)
                     {
@@ -370,7 +372,13 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void initializeRideGroupsPanelComponent()
         {
+            initButtons();
             initListBox();
+        }
+
+        private void initButtons()
+        {
+            RideGroups_join.Click += new EventHandler(rideGroups_join_Click); 
         }
 
         private void initListBox()
@@ -378,26 +386,18 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             try
             {
                 List<string> userGroupRideIDs = r_DBHandler.FetchAllUserRideGroupsIDs(r_LoggedInUser.Id);
-
+                
                 RideGroups_listBox.Items.Clear();
 
-                foreach (string groupRideID in userGroupRideIDs)
+                foreach (RideGroup rideGroup in m_UserGroupNameIDMapping.Values)
                 {
-                    Group userGroupRide = FacebookWrapper.FacebookService.GetObject(groupRideID);
-
-                    RideGroups_listBox.Items.Add(userGroupRide);
+                    RideGroups_listBox.Items.Add(rideGroup);
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 // TODO: handle the exception
             }
-        }
-
-        private void rideGroups_new_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            FriendList f = UserDataManager.Instance.LoggedInUser.CreateFriendList("");
-
         }
 
         private void rideGroups_join_Click(object sender, EventArgs e)
@@ -407,11 +407,22 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
         private void handleJoinRideGroupSumbission()
         {
-            Group chosenGroup = JoinRide_listBox.SelectedItem as Group;
-            
-            if(chosenGroup != null)
+            RideGroup chosenGroup = JoinRide_listBox.SelectedItem as RideGroup;
+
+            if (chosenGroup != null)
             {
-                
+                bool isNeedToJoinManually;
+
+                chosenGroup.AddMember(r_LoggedInUser, out isNeedToJoinManually);
+
+                if (isNeedToJoinManually)
+                {
+                    MessageBox.Show($"please join this group manually using the following link www.facebook.com/{chosenGroup.Id}");
+                }
+                else
+                {
+                    MessageBox.Show($"you successfully joined '{chosenGroup.Name}'");
+                }
             }
             else
             {

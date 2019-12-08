@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace A20_Ex01_Maayan_312275431_Yarden_204623284
+namespace PoolMyRide
 {
-    internal class NewRideConrolsData
+    public class NewRide
     {
         private DateTime m_RideDate;
 
-        internal NewRideConrolsData(ePoolMyRidyCityOptions i_CityFrom, ePoolMyRidyCityOptions i_CityTo,
+        public NewRide(ePoolMyRidyCityOptions i_CityFrom, ePoolMyRidyCityOptions i_CityTo,
             DateTime i_RideDate,  string i_GroupID, bool i_IsUserDriver)
         {
             CityFrom = i_CityFrom;
@@ -19,9 +19,9 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             IsUserDriver = i_IsUserDriver;
         }
 
-        internal ePoolMyRidyCityOptions CityFrom { get; private set; }
-        internal ePoolMyRidyCityOptions CityTo { get; private set; }
-        internal DateTime RideDate {
+        public ePoolMyRidyCityOptions CityFrom { get; private set; }
+        public ePoolMyRidyCityOptions CityTo { get; private set; }
+        public DateTime RideDate {
             get
             {
                 return m_RideDate;
@@ -36,7 +36,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                 m_RideDate = value;
             }
         }
-        internal string GroupID { get; private set; }
-        internal bool IsUserDriver { get; private set; }
+        public string GroupID { get; private set; }
+        public bool IsUserDriver { get; private set; }
     }
 }
