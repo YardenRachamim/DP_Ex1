@@ -130,7 +130,6 @@ namespace PoolMyRide
             {
                 if (eventRide == null)
                 {
-                    // TODO: throw the right exceptions
                     throw new Exception("Problem in event creation");
                 }
                 else

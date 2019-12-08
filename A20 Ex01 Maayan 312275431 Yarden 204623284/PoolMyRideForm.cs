@@ -16,17 +16,13 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
     public partial class PoolMyRideForm : Form
     {
-        // TODO:
-        // Consider what will happen if user not belong to any group!
-
         private Panel m_CurrentVisiblePanel;
         private readonly User r_LoggedInUser = UserDataManager.Instance.LoggedInUser;
         private readonly DBHandler r_DBHandler = DBHandler.GetInstance;
         private Dictionary<string, RideGroup> m_UserGroupNameIDMapping = new Dictionary<string, RideGroup>();
 
-        public PoolMyRideForm(MainForm i_MainForm)
+        public PoolMyRideForm()
         {
-            // TODO: make the window start in the right size 
             InitializeComponent();
             fetchUserData();
             loadUserProfilePicture();
@@ -91,7 +87,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             }
             catch (Exception ex)
             {
-                // TODO: catch the right exception
+                // ...
             }
         }
 
@@ -272,7 +268,6 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             }
             catch (Exception ex)
             {
-                // TODO: change to the right Exception type
                 MessageBox.Show(ex.Message);
             }
         }
@@ -307,8 +302,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                 }
                 catch(Exception ex)
                 {
-                    // TODO: consider show the user a message 
-                    //or handle the exception in the right way
+                    MessageBox.Show(ex.Message);
                 }
             }
             else
@@ -344,14 +338,12 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
                     }
                     else
                     {
-                        // TODO: throw the right exception here
                         throw new Exception("Can't send invitation to the user");
                     }
 
                     MessageBox.Show($"You successfully join to {rideEventName}, please contact {rideEventOwnerName} for more details");
                 }catch(Exception ex)
                 {
-                    // TODO: catch the right exception and show the right msg to the user
                     MessageBox.Show(ex.Message);
                 }
             }
@@ -396,7 +388,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
             }
             catch (Exception ex)
             {
-                // TODO: handle the exception
+                // ...
             }
         }
 

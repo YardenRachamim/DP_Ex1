@@ -9,8 +9,6 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 {
     public class CommonPages
     {
-
-        //TODO: change to singletone Maayan :(
         private Dictionary<Page,int> m_PageDictionary = new Dictionary<Page, int>();
 
         public void Add(Page i_Page)

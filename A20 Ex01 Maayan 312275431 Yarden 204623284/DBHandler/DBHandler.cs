@@ -47,7 +47,7 @@ namespace DataHandler
 
         public List<string> FetchAllUserRideGroupsIDs(string i_UserID)
         {
-            // TODO: implement
+            // ...
             List<string> rideGroupIds = new List<string>();
 
             rideGroupIds.Add(g1);
@@ -58,7 +58,7 @@ namespace DataHandler
 
         public List<string> FetchAllGroupRideEvents(string i_RideEventId)
         {
-            // TODO: implement
+            // ...
 
             List<string> rideIds = new List<string>();
 

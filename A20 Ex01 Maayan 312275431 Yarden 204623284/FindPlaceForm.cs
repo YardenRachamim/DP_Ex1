@@ -87,7 +87,7 @@ namespace A20_Ex01_Maayan_312275431_Yarden_204623284
 
             if (selectedFriend == null)
             {
-                MessageBox.Show("Friend not found - ERROR"); // TODO: what to do when error?
+                MessageBox.Show("Friend not found - ERROR");
             }
 
             i_ListBoxFrom.Items.Remove(selectedFriend.Name);
