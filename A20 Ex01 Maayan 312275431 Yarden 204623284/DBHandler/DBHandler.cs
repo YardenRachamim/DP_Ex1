@@ -14,6 +14,14 @@ namespace DataHandler
         private static DBHandler s_DBHandler = null;
         private static readonly object sr_Padlock = new object();
 
+        // TOOD: debug
+        private static string g1 = Guid.NewGuid().ToString();
+        private static string g2 = Guid.NewGuid().ToString();
+
+        private static string e11 = Guid.NewGuid().ToString();
+        private static string e12 = Guid.NewGuid().ToString();
+        private static string e21 = Guid.NewGuid().ToString();
+
         private DBHandler()
         {
         }
@@ -42,14 +50,38 @@ namespace DataHandler
             // TODO: implement
             List<string> rideGroupIds = new List<string>();
 
-            rideGroupIds.Add("0");
-            rideGroupIds.Add("1");
+            rideGroupIds.Add(g1);
+            rideGroupIds.Add(g2);
 
             return rideGroupIds;
         }
 
+        public List<string> FetchAllGroupRideEvents(string i_RideEventId)
+        {
+            // TODO: implement
 
-        internal XmlDocument LoadXMLFromPath(string i_FilePath)
+            List<string> rideIds = new List<string>();
+
+            if(i_RideEventId == g1)
+            {
+                rideIds.Add(e11);
+                rideIds.Add(e12);
+
+            }
+            else if(i_RideEventId == g2)
+            {
+                rideIds.Add(e21);
+            }
+
+            return rideIds;
+        }
+
+        public void SaveEventToGroupRide(string i_RideGroupId, string i_RideEventId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public XmlDocument LoadXMLFromPath(string i_FilePath)
         {
             XmlDocument doc = new XmlDocument();
 
@@ -72,7 +104,7 @@ namespace DataHandler
             }
         }
 
-        internal void WritrToXMLLastFreindsList(string i_FilePath, List<string> i_Items)
+        public void WritrToXMLLastFreindsList(string i_FilePath, List<string> i_Items)
         {
             createFileIfNotExist(i_FilePath);
             try

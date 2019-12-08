@@ -52,7 +52,6 @@
             this.RideGroups_label = new System.Windows.Forms.Label();
             this.RideGroups_listBox = new System.Windows.Forms.ListBox();
             this.RideGroups_join = new System.Windows.Forms.Button();
-            this.RideGroups_new = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.LoggedInUserPictureBox)).BeginInit();
             this.NewRide_panel.SuspendLayout();
@@ -256,7 +255,6 @@
             this.RideGroups_panel.Controls.Add(this.RideGroups_label);
             this.RideGroups_panel.Controls.Add(this.RideGroups_listBox);
             this.RideGroups_panel.Controls.Add(this.RideGroups_join);
-            this.RideGroups_panel.Controls.Add(this.RideGroups_new);
             this.RideGroups_panel.Location = new System.Drawing.Point(218, 206);
             this.RideGroups_panel.Name = "RideGroups_panel";
             this.RideGroups_panel.Size = new System.Drawing.Size(764, 394);
@@ -265,7 +263,7 @@
             // RideGroups_label
             // 
             this.RideGroups_label.AutoSize = true;
-            this.RideGroups_label.Location = new System.Drawing.Point(333, 32);
+            this.RideGroups_label.Location = new System.Drawing.Point(80, 9);
             this.RideGroups_label.Name = "RideGroups_label";
             this.RideGroups_label.Size = new System.Drawing.Size(117, 20);
             this.RideGroups_label.TabIndex = 16;
@@ -275,28 +273,19 @@
             // 
             this.RideGroups_listBox.FormattingEnabled = true;
             this.RideGroups_listBox.ItemHeight = 20;
-            this.RideGroups_listBox.Location = new System.Drawing.Point(333, 55);
+            this.RideGroups_listBox.Location = new System.Drawing.Point(84, 44);
             this.RideGroups_listBox.Name = "RideGroups_listBox";
-            this.RideGroups_listBox.Size = new System.Drawing.Size(405, 324);
+            this.RideGroups_listBox.Size = new System.Drawing.Size(405, 224);
             this.RideGroups_listBox.TabIndex = 15;
             // 
             // RideGroups_join
             // 
-            this.RideGroups_join.Location = new System.Drawing.Point(41, 156);
+            this.RideGroups_join.Location = new System.Drawing.Point(84, 295);
             this.RideGroups_join.Name = "RideGroups_join";
             this.RideGroups_join.Size = new System.Drawing.Size(163, 73);
             this.RideGroups_join.TabIndex = 13;
             this.RideGroups_join.Text = "Join a Ride Group";
             this.RideGroups_join.UseVisualStyleBackColor = true;
-            // 
-            // RideGroups_new
-            // 
-            this.RideGroups_new.Location = new System.Drawing.Point(41, 59);
-            this.RideGroups_new.Name = "RideGroups_new";
-            this.RideGroups_new.Size = new System.Drawing.Size(163, 73);
-            this.RideGroups_new.TabIndex = 14;
-            this.RideGroups_new.Text = "New Ride Group";
-            this.RideGroups_new.UseVisualStyleBackColor = true;
             // 
             // PoolMyRideForm
             // 
@@ -345,7 +334,6 @@
         private System.Windows.Forms.Button JoinRide_button;
         private System.Windows.Forms.Panel RideGroups_panel;
         private System.Windows.Forms.Button RideGroups_join;
-        private System.Windows.Forms.Button RideGroups_new;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ListBox RideGroups_listBox;
         private System.Windows.Forms.Label RideGroups_label;

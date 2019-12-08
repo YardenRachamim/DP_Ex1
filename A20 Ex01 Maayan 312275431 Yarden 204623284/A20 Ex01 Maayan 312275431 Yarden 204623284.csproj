@@ -59,6 +59,7 @@
     <Compile Include="FindPlaceForm.Designer.cs">
       <DependentUpon>FindPlaceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PoolMyRide\RideGroup.cs" />
     <Compile Include="UserDataManager.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -78,7 +79,7 @@
     <Compile Include="PoolMyRideForm.Designer.cs">
       <DependentUpon>PoolMyRideForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PoolMyRide\NewRideConrolsData.cs" />
+    <Compile Include="PoolMyRide\NewRide.cs" />
     <Compile Include="PoolMyRide\PoolMyRidyCityOptions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

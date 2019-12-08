@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Utils
 {
-    public class WinFormUtils
+    public static class WinFormUtils
     {
         public static void RemoveAllClickEvents(Button i_Button)
         {
@@ -20,6 +20,43 @@ namespace Utils
             EventHandlerList list = (EventHandlerList)propertyInfo.GetValue(i_Button, null);
 
             list.RemoveHandler(obj, list[obj]);
+        }
+
+        public static void ClearAllControlsFromAGivenList(Control.ControlCollection i_Controls)
+        {
+            foreach (Control control in i_Controls)
+            {
+                if (control is TextBox)
+                {
+                    TextBox txtbox = (TextBox)control;
+                    txtbox.Text = string.Empty;
+                }
+                else if (control is CheckBox)
+                {
+                    CheckBox chkbox = (CheckBox)control;
+                    chkbox.Checked = false;
+                }
+                else if (control is ListBox)
+                {
+                    ListBox listBox = (ListBox)control;
+                    listBox.Items.Clear();
+                }
+                else if (control is DateTimePicker)
+                {
+                    DateTimePicker dtp = (DateTimePicker)control;
+                    dtp.Value = DateTime.Now ;
+                }
+                else if (control is ComboBox)
+                {
+                    ComboBox comboBox = (ComboBox)control;
+                    comboBox.Items.Clear();
+                }
+                else if (control is Button)
+                {
+                    Button button = (Button)control;
+                    WinFormUtils.RemoveAllClickEvents(button);
+                }
+            }
         }
     }
 }
