@@ -10,7 +10,7 @@ namespace MyFacebookApp
         [STAThread]
         public static void Main()
         {
-            MainForm maimForm = new MainForm();
+            MainForm maimForm = new MainForm(); 
         }
     }
 }
