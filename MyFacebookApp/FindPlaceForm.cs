@@ -13,7 +13,7 @@ using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using DataHandler;
 
-namespace A20_Ex01_Maayan_312275431_Yarden_204623284
+namespace MyFacebookApp
 {
     public partial class FindPlaceForm : Form
     {

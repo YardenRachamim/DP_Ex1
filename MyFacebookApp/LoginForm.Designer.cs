@@ -1,4 +1,4 @@
-﻿namespace A20_Ex01_Maayan_312275431_Yarden_204623284
+﻿namespace MyFacebookApp
 {
     partial class LoginForm
     {

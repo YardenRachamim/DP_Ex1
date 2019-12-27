@@ -1,4 +1,4 @@
-﻿using A20_Ex01_Maayan_312275431_Yarden_204623284;
+﻿using MyFacebookApp;
 using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections.Generic;

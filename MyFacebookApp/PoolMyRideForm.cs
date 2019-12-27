@@ -12,7 +12,7 @@ using System.Reflection;
 using Utils;
 using PoolMyRide;
 
-namespace A20_Ex01_Maayan_312275431_Yarden_204623284
+namespace MyFacebookApp
 {
     public partial class PoolMyRideForm : Form
     {
