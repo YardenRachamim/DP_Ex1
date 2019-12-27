@@ -14,7 +14,7 @@ namespace MyFacebookApp
 
         public MainForm()
         {
-            r_UserDataManager =Singleton<UserDataManager>.Instance;
+            r_UserDataManager = Singleton<UserDataManager>.Instance;
             InitializeComponent();
             r_LoginForm = new LoginForm(this);
             r_LoginForm.ShowDialog();
