@@ -47,19 +47,19 @@ namespace MyFacebookApp
 
         private void initializeFriendsList()
         {
-            if (UserDataManager.Instance.Friends == null)
+            if (Singleton<UserDataManager>.Instance.Friends == null)
             {
-                UserDataManager.Instance.Friends = UserDataManager.Instance.LoggedInUser.Friends;
+                Singleton<UserDataManager>.Instance.Friends = Singleton<UserDataManager>.Instance.LoggedInUser.Friends;
             }
 
             listBoxNotSelected.Items.Clear();
-            foreach (User friend in UserDataManager.Instance.Friends)
+            foreach (User friend in Singleton<UserDataManager>.Instance.Friends)
             {
                 listBoxNotSelected.Items.Add(friend.Name);
                 friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
             }
 
-            if (UserDataManager.Instance.Friends.Count == 0)
+            if (Singleton<UserDataManager>.Instance.Friends.Count == 0)
             {
                 MessageBox.Show("No Friends to retrieve...");
             }
@@ -107,7 +107,7 @@ namespace MyFacebookApp
         private User getSelectedUserByName(string i_UserNameToFind)
         {
             User foundUser = null;
-            foreach (User user in UserDataManager.Instance.Friends)
+            foreach (User user in Singleton<UserDataManager>.Instance.Friends)
             {
                 if (user.Name == i_UserNameToFind)
                 {
@@ -124,7 +124,7 @@ namespace MyFacebookApp
 
             listBoxNotSelected.Items.Clear();
 
-            foreach (User friend in UserDataManager.Instance.Friends)
+            foreach (User friend in Singleton<UserDataManager>.Instance.Friends)
             {
                 if (isContains(friend.Name, textThatChanged))
                 {
@@ -163,7 +163,7 @@ namespace MyFacebookApp
 
         private void loadXMLList()
         {
-            XmlDocument doc = DBHandler.GetInstance.LoadXMLFromPath(k_FileLastFriendsListPath);
+            XmlDocument doc = Singleton<DBHandler>.Instance.LoadXMLFromPath(k_FileLastFriendsListPath);
             
             try
             {
@@ -219,7 +219,7 @@ namespace MyFacebookApp
 
             try
             { 
-                foreach (Page page in UserDataManager.Instance.LoggedInUser.LikedPages)
+                foreach (Page page in Singleton<UserDataManager>.Instance.LoggedInUser.LikedPages)
                 {
                     commonPages.Add(page);
                 }
@@ -255,7 +255,7 @@ namespace MyFacebookApp
         {
             List<string> selectedFriends = listBoxSelected.Items.Cast<string>().ToList();
 
-            DBHandler.GetInstance.WritrToXMLLastFreindsList(k_FileLastFriendsListPath, selectedFriends);
+            Singleton<DBHandler>.Instance.WritrToXMLLastFreindsList(k_FileLastFriendsListPath, selectedFriends);
         }
 
 

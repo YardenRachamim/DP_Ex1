@@ -26,24 +26,24 @@ namespace DataHandler
         {
         }
 
-        public static DBHandler GetInstance
-        {
-            get
-            {
-                if (s_DBHandler == null)
-                {
-                    lock (sr_Padlock)
-                    {
-                        if (s_DBHandler == null)
-                        {
-                            s_DBHandler = new DBHandler();
-                        }
-                    }
-                }
+        //public static DBHandler GetInstance
+        //{
+        //    get
+        //    {
+        //        if (s_DBHandler == null)
+        //        {
+        //            lock (sr_Padlock)
+        //            {
+        //                if (s_DBHandler == null)
+        //                {
+        //                    s_DBHandler = new DBHandler();
+        //                }
+        //            }
+        //        }
 
-                return s_DBHandler;
-            }
-        }
+        //        return s_DBHandler;
+        //    }
+        //}
 
         public List<string> FetchAllUserRideGroupsIDs(string i_UserID)
         {

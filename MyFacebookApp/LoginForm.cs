@@ -76,7 +76,7 @@ namespace MyFacebookApp
 
             if (!string.IsNullOrEmpty(result.AccessToken))
             {
-                UserDataManager.Instance.LoggedInUser = result.LoggedInUser;
+                Singleton<UserDataManager>.Instance.LoggedInUser = result.LoggedInUser;
                 this.Hide();
                 m_MainForm.StartForm();
             }

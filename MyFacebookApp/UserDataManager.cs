@@ -16,24 +16,6 @@ namespace MyFacebookApp
 
         }
 
-        public static UserDataManager Instance
-        {
-            get
-            {
-                if (s_UserDataManager == null)
-                {
-                    lock (sr_Padlock)
-                    {
-                        if (s_UserDataManager == null)
-                        {
-                            s_UserDataManager = new UserDataManager();
-                        }
-                    }
-                }
-                return s_UserDataManager;
-            }
-        }
-        
         public FacebookObjectCollection<User> Friends { get; set; }
         public FacebookObjectCollection<Album> Albums { get; set; }
         public FacebookObjectCollection<Post> Posts { get; set; }
