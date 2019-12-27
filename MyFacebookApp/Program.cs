@@ -10,7 +10,8 @@ namespace MyFacebookApp
         [STAThread]
         public static void Main()
         {
-            MainForm maimForm = new MainForm(); 
+            Application.EnableVisualStyles();
+            Application.Run(new MainForm());
         }
     }
 }
