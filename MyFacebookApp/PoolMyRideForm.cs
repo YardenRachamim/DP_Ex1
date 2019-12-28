@@ -17,7 +17,8 @@ namespace MyFacebookApp
     public partial class PoolMyRideForm : Form
     {
         private Panel m_CurrentVisiblePanel;
-        private readonly User r_LoggedInUser = Singleton<UserDataManager>.Instance.LoggedInUser;
+        private readonly UserDataManager r_UserDataManager = Singleton<UserDataManager>.Instance;
+        //private readonly User r_LoggedInUser = Singleton<UserDataManager>.Instance.LoggedInUser;
         private readonly DBHandler r_DBHandler = Singleton<DBHandler>.Instance;
         private Dictionary<string, RideGroup> m_UserGroupNameIDMapping = new Dictionary<string, RideGroup>();
 
@@ -40,7 +41,7 @@ namespace MyFacebookApp
         {
             try
             {
-                string userID = r_LoggedInUser.Id;
+                string userID = r_UserDataManager.Id;
                 List<string> rideGroupIDs = r_DBHandler.FetchAllUserRideGroupsIDs(userID);
 
                 foreach (string ID in rideGroupIDs)
@@ -93,7 +94,7 @@ namespace MyFacebookApp
 
         private void loadUserProfilePicture()
         {
-            LoggedInUserPictureBox.LoadAsync(r_LoggedInUser.PictureNormalURL);
+            LoggedInUserPictureBox.LoadAsync(r_UserDataManager.PictureNormalURL);
         }
         #endregion Fetch user data
 
@@ -198,9 +199,9 @@ namespace MyFacebookApp
                 NewRide controlsData = fetchNewRidePanelConrolersData();
                 RideGroup rideGroup = m_UserGroupNameIDMapping[controlsData.GroupID];
                 //Group chosenRideFBGroup = FacebookWrapper.FacebookService.GetObject(controlsData.GroupID); 
-                string eventName = $"{r_LoggedInUser.Name} new Ride!";
+                string eventName = $"{r_UserDataManager.Name} new Ride!";
                 string eventDescription = getDescription(controlsData);
-                Event eventRide = rideGroup.CreateEvent(r_LoggedInUser, eventName,
+                Event eventRide = rideGroup.CreateEvent(r_UserDataManager.LoggedInUser, eventName,
                     controlsData.RideDate,
                     i_Description: eventDescription);
 
@@ -221,11 +222,11 @@ namespace MyFacebookApp
 
             if (i_ControlsData.IsUserDriver)
             {
-                description.AppendLine($"{r_LoggedInUser.Name} will drive");
+                description.AppendLine($"{r_UserDataManager.Name} will drive");
             }
             else
             {
-                description.AppendLine($"{r_LoggedInUser.Name} looking for driver");
+                description.AppendLine($"{r_UserDataManager.Name} looking for driver");
             }
 
             return description.ToString();
@@ -324,7 +325,7 @@ namespace MyFacebookApp
             {
                 List<User> usersToInvite = new List<User>();
 
-                usersToInvite.Add(r_LoggedInUser);
+                usersToInvite.Add(r_UserDataManager.LoggedInUser);
 
                 try
                 {
@@ -377,7 +378,7 @@ namespace MyFacebookApp
         {
             try
             {
-                List<string> userGroupRideIDs = r_DBHandler.FetchAllUserRideGroupsIDs(r_LoggedInUser.Id);
+                List<string> userGroupRideIDs = r_DBHandler.FetchAllUserRideGroupsIDs(r_UserDataManager.Id);
                 
                 RideGroups_listBox.Items.Clear();
 
@@ -405,7 +406,7 @@ namespace MyFacebookApp
             {
                 bool isNeedToJoinManually;
 
-                chosenGroup.AddMember(r_LoggedInUser, out isNeedToJoinManually);
+                chosenGroup.AddMember(r_UserDataManager.LoggedInUser, out isNeedToJoinManually);
 
                 if (isNeedToJoinManually)
                 {

@@ -60,7 +60,7 @@
       <DependentUpon>FindPlaceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PoolMyRide\RideGroup.cs" />
-    <Compile Include="Singelton.cs" />
+    <Compile Include="Utils\Singelton.cs" />
     <Compile Include="UserDataManager.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>

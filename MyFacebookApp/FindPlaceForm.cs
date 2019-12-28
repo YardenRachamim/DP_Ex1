@@ -20,6 +20,7 @@ namespace MyFacebookApp
         private Panel m_visiblePanel;
         private const string k_SearchBoxLabel = "Name...";
         private const string k_FileLastFriendsListPath = "./DB_LastCloseFriend.XML";
+        private readonly UserDataManager r_UserDataManager = Singleton<UserDataManager>.Instance;
 
         public FindPlaceForm()
         {
@@ -47,19 +48,19 @@ namespace MyFacebookApp
 
         private void initializeFriendsList()
         {
-            if (Singleton<UserDataManager>.Instance.Friends == null)
-            {
-                Singleton<UserDataManager>.Instance.Friends = Singleton<UserDataManager>.Instance.LoggedInUser.Friends;
-            }
+            //if (r_UserDataManager.Friends == null)
+            //{
+            //    Singleton<UserDataManager>.Instance.Friends = Singleton<UserDataManager>.Instance.LoggedInUser.Friends;
+            //}
 
             listBoxNotSelected.Items.Clear();
-            foreach (User friend in Singleton<UserDataManager>.Instance.Friends)
+            foreach (User friend in r_UserDataManager.Friends)
             {
                 listBoxNotSelected.Items.Add(friend.Name);
                 friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
             }
 
-            if (Singleton<UserDataManager>.Instance.Friends.Count == 0)
+            if (r_UserDataManager.Friends.Count == 0)
             {
                 MessageBox.Show("No Friends to retrieve...");
             }
@@ -107,7 +108,7 @@ namespace MyFacebookApp
         private User getSelectedUserByName(string i_UserNameToFind)
         {
             User foundUser = null;
-            foreach (User user in Singleton<UserDataManager>.Instance.Friends)
+            foreach (User user in r_UserDataManager.Friends)
             {
                 if (user.Name == i_UserNameToFind)
                 {
@@ -124,7 +125,7 @@ namespace MyFacebookApp
 
             listBoxNotSelected.Items.Clear();
 
-            foreach (User friend in Singleton<UserDataManager>.Instance.Friends)
+            foreach (User friend in r_UserDataManager.Friends)
             {
                 if (isContains(friend.Name, textThatChanged))
                 {
@@ -219,7 +220,7 @@ namespace MyFacebookApp
 
             try
             { 
-                foreach (Page page in Singleton<UserDataManager>.Instance.LoggedInUser.LikedPages)
+                foreach (Page page in r_UserDataManager.LikedPages)
                 {
                     commonPages.Add(page);
                 }

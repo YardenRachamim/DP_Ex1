@@ -1,6 +1,7 @@
 ﻿using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using System;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace MyFacebookApp
@@ -24,7 +25,7 @@ namespace MyFacebookApp
 
         private void fetchUserPicture()
         {
-            LoggedInUserPictureBox.LoadAsync(r_UserDataManager.LoggedInUser.PictureNormalURL);
+            LoggedInUserPictureBox.LoadAsync(r_UserDataManager.PictureNormalURL);
         }
 
         public void StartForm()
@@ -36,18 +37,19 @@ namespace MyFacebookApp
 
         private void fetchUserDetails()
         {
-            listBoxDetails.Items.Add("First Name: " + r_UserDataManager.LoggedInUser.FirstName);
-            listBoxDetails.Items.Add("Last Name: " + r_UserDataManager.LoggedInUser.LastName);
-            listBoxDetails.Items.Add("Birthday: " + r_UserDataManager.LoggedInUser.Birthday);
-            listBoxDetails.Items.Add("Hometown: " + r_UserDataManager.LoggedInUser.Hometown);
-            listBoxDetails.Items.Add("RelationshipStatus: " + r_UserDataManager.LoggedInUser.RelationshipStatus);
-            listBoxDetails.Items.Add("Religion: " + r_UserDataManager.LoggedInUser.Religion);
-            listBoxDetails.Items.Add("TimeZone: " + r_UserDataManager.LoggedInUser.TimeZone);
+            listBoxDetails.Items.Add("First Name: " + r_UserDataManager.FirstName);
+            listBoxDetails.Items.Add("Last Name: " + r_UserDataManager.LastName);
+            listBoxDetails.Items.Add("Birthday: " + r_UserDataManager.Birthday);
+            listBoxDetails.Items.Add("Hometown: " + r_UserDataManager.Hometown);
+            listBoxDetails.Items.Add("RelationshipStatus: " + r_UserDataManager.RelationshipStatus);
+            listBoxDetails.Items.Add("Religion: " + r_UserDataManager.Religion);
+            listBoxDetails.Items.Add("TimeZone: " + r_UserDataManager.TimeZone);
         }
 
         private void checkBoxPosts_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
+
             if (checkBox.Checked == true)
             {
                 fetchUserPosts();
@@ -65,10 +67,10 @@ namespace MyFacebookApp
 
         private void fetchUserPosts()
         {
-            if (r_UserDataManager.Posts == null)
-            {
-                r_UserDataManager.Posts = r_UserDataManager.LoggedInUser.Posts;
-            }
+            //if (r_UserDataManager.Posts == null)
+            //{
+            //    r_UserDataManager.Posts = r_UserDataManager.LoggedInUser.Posts;
+            //}
 
             foreach (Post post in r_UserDataManager.Posts)
             {
@@ -107,10 +109,10 @@ namespace MyFacebookApp
 
         private void fetchUserAlbums()
         {
-            if (r_UserDataManager.Albums == null)
-            {
-                r_UserDataManager.Albums = r_UserDataManager.LoggedInUser.Albums;
-            }
+            //if (r_UserDataManager.Albums == null)
+            //{
+            //    r_UserDataManager.Albums = r_UserDataManager.LoggedInUser.Albums;
+            //}
 
             foreach (Album album in r_UserDataManager.Albums)
             {
@@ -146,10 +148,10 @@ namespace MyFacebookApp
 
         private void fetchUserFriends()
         {
-            if (r_UserDataManager.Friends == null)
-            {
-                r_UserDataManager.Friends = r_UserDataManager.LoggedInUser.Friends;
-            }
+            //if (r_UserDataManager.Friends == null)
+            //{
+            //    r_UserDataManager.Friends = r_UserDataManager.LoggedInUser.Friends;
+            //}
 
             foreach (User friend in r_UserDataManager.Friends)
             {

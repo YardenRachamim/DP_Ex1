@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
+// TODO: change the namespace
 namespace MyFacebookApp
 {
     public static class Singleton<T>
