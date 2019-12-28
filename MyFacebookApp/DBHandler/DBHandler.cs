@@ -11,8 +11,8 @@ namespace DataHandler
 {
     public class DBHandler
     {
-        private static DBHandler s_DBHandler = null;
         private static readonly object sr_Padlock = new object();
+        private const string k_FileLastFriendsListPath = "./DB_LastCloseFriend.XML";
 
         // TOOD: debug
         private static string g1 = Guid.NewGuid().ToString();
@@ -25,6 +25,8 @@ namespace DataHandler
         private DBHandler()
         {
         }
+
+        public string LastFriendsListPath { get { return k_FileLastFriendsListPath; } }
 
         public List<string> FetchAllUserRideGroupsIDs(string i_UserID)
         {

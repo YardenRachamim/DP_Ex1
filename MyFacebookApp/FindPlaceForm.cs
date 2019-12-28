@@ -27,7 +27,14 @@ namespace MyFacebookApp
             initializeFriendsList();
             initializeListView();
             initializeVisiblePanel();
+            initializeListBoxs();
             ShowDialog();
+        }
+
+        private void initializeListBoxs()
+        {
+            listBoxNotSelected.DisplayMember = "Name";
+            listBoxSelected.DisplayMember = "Name";
         }
 
         private void initializeVisiblePanel()
@@ -55,7 +62,7 @@ namespace MyFacebookApp
             listBoxNotSelected.Items.Clear();
             foreach (User friend in Singleton<UserDataManager>.Instance.Friends)
             {
-                listBoxNotSelected.Items.Add(friend.Name);
+                listBoxNotSelected.Items.Add(friend);
                 friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
             }
 
@@ -83,24 +90,24 @@ namespace MyFacebookApp
             {
                 return; //Nothing was selected
             }
-            User selectedFriend = getSelectedUserByName(i_ListBoxFrom.SelectedItem.ToString());
+            User selectedFriend = i_ListBoxFrom.SelectedItem as User;
 
             if (selectedFriend == null)
             {
                 MessageBox.Show("Friend not found - ERROR");
             }
 
-            i_ListBoxFrom.Items.Remove(selectedFriend.Name);
+            i_ListBoxFrom.Items.Remove(selectedFriend);
             if (i_ListBoxTo.Name == "listBoxNotSelected")
             {
                 if (isContains(selectedFriend.Name, textBoxSearch.Text))
                 {
-                    i_ListBoxTo.Items.Add(selectedFriend.Name);
+                    i_ListBoxTo.Items.Add(selectedFriend);
                 }
             }
             else
             {
-                i_ListBoxTo.Items.Add(selectedFriend.Name);
+                i_ListBoxTo.Items.Add(selectedFriend);
             }
         }
 
@@ -128,9 +135,9 @@ namespace MyFacebookApp
             {
                 if (isContains(friend.Name, textThatChanged))
                 {
-                    if (!listBoxSelected.Items.Contains(friend.Name))
+                    if (!listBoxSelected.Items.Contains(friend))
                     {
-                        listBoxNotSelected.Items.Add(friend.Name);
+                        listBoxNotSelected.Items.Add(friend);
                     }
                 }
             }
@@ -158,36 +165,48 @@ namespace MyFacebookApp
 
         private void buttonLoadXMLList_Click(object sender, EventArgs e)
         {
-            loadXMLList();
-        }
-
-        private void loadXMLList()
-        {
-            XmlDocument doc = Singleton<DBHandler>.Instance.LoadXMLFromPath(k_FileLastFriendsListPath);
-            
             try
             {
-                foreach (XmlNode node in doc.DocumentElement.ChildNodes)
+                List<string> lastFriendsnamesList = XMLToListAdapter.LoadLastFriendsList();
+                List<User> lastFriendsList = stringListToUserList(lastFriendsnamesList);
+                loadListToSelectedFriends(lastFriendsList);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error - " + ex.Message);
+            }
+        }
+
+        private List<User> stringListToUserList(List<string> i_NamesList)
+        {
+            List<User> usersList = new List<User>();
+
+            foreach (string name in i_NamesList)
+            {
+                User user = getSelectedUserByName(name);
+                usersList.Add(user);
+            }
+
+            return usersList;
+        }
+
+        private void loadListToSelectedFriends(List<User> i_LastFriendsList)
+        {
+            foreach (User friend in i_LastFriendsList)
+            {
+                if (listBoxNotSelected.Items.Contains(friend))
                 {
-                    string friendNameFromXML = node.InnerText;
-                    if (listBoxNotSelected.Items.Contains(friendNameFromXML))
+                    listBoxNotSelected.Items.Remove(friend);
+                    if (!listBoxSelected.Items.Contains(friend))
                     {
-                        listBoxNotSelected.Items.Remove(friendNameFromXML);
-                        if (!listBoxSelected.Items.Contains(friendNameFromXML))
-                        {
-                            listBoxSelected.Items.Add(friendNameFromXML);
-                        }
+                        listBoxSelected.Items.Add(friend);
                     }
                 }
-
-                if (doc.DocumentElement.ChildNodes.Count == 0)
-                {
-                    MessageBox.Show("Last friend list is empty.");
-                }
             }
-            catch (Exception e)
+
+            if (i_LastFriendsList.Count == 0)
             {
-                MessageBox.Show("Error - " + e.Message);
+                MessageBox.Show("Last friend list is empty.");
             }
         }
 
@@ -200,7 +219,7 @@ namespace MyFacebookApp
 
         private void buttonFindPlaces_Click(object sender, EventArgs e)
         {
-            writeToXMLLastFriendsList();
+            writeLastFriendsList();
             findCommonPlacesLikedByAllFriends();
             changeVisiblePanel(panelPagesResults);
         }
@@ -251,11 +270,12 @@ namespace MyFacebookApp
 
         }
 
-        private void writeToXMLLastFriendsList()
+        private void writeLastFriendsList()
         {
-            List<string> selectedFriends = listBoxSelected.Items.Cast<string>().ToList();
+            List<User> selectedFriends = listBoxSelected.Items.Cast<User>().ToList<User>();
+            List<string> selectedFriendsNames = selectedFriends.ConvertAll(user => user.Name);
+            XMLToListAdapter.writeLastFriendsList(selectedFriendsNames);
 
-            Singleton<DBHandler>.Instance.WritrToXMLLastFreindsList(k_FileLastFriendsListPath, selectedFriends);
         }
 
 
