@@ -30,20 +30,25 @@ namespace MyFacebookApp
 
         public void StartForm()
         {
+            this.ShowDialog();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
             fetchUserPicture();
             fetchUserDetails();
-            this.ShowDialog();
         }
 
         private void fetchUserDetails()
         {
-            listBoxDetails.Items.Add("First Name: " + r_UserDataManager.FirstName);
-            listBoxDetails.Items.Add("Last Name: " + r_UserDataManager.LastName);
-            listBoxDetails.Items.Add("Birthday: " + r_UserDataManager.Birthday);
-            listBoxDetails.Items.Add("Hometown: " + r_UserDataManager.Hometown);
-            listBoxDetails.Items.Add("RelationshipStatus: " + r_UserDataManager.RelationshipStatus);
-            listBoxDetails.Items.Add("Religion: " + r_UserDataManager.Religion);
-            listBoxDetails.Items.Add("TimeZone: " + r_UserDataManager.TimeZone);
+            listBoxDetails.Invoke(new Action(() => listBoxDetails.Items.Add("First Name: " + r_UserDataManager.FirstName)));
+            listBoxDetails.Invoke(new Action(() => listBoxDetails.Items.Add("Last Name: " + r_UserDataManager.LastName)));
+            listBoxDetails.Invoke(new Action(() => listBoxDetails.Items.Add("Birthday: " + r_UserDataManager.Birthday)));
+            listBoxDetails.Invoke(new Action(() => listBoxDetails.Items.Add("Hometown: " + r_UserDataManager.Hometown)));
+            listBoxDetails.Invoke(new Action(() => listBoxDetails.Items.Add("RelationshipStatus: " + r_UserDataManager.RelationshipStatus)));
+            listBoxDetails.Invoke(new Action(() => listBoxDetails.Items.Add("Religion: " + r_UserDataManager.Religion)));
+            listBoxDetails.Invoke(new Action(() => listBoxDetails.Items.Add("TimeZone: " + r_UserDataManager.TimeZone)));
         }
 
         private void checkBoxPosts_CheckedChanged(object sender, EventArgs e)
