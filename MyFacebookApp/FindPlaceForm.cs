@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using System.Xml;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
-using DataHandler;
 
 namespace MyFacebookApp
 {
@@ -21,6 +20,7 @@ namespace MyFacebookApp
         private const string k_SearchBoxLabel = "Name...";
         private const string k_FileLastFriendsListPath = "./DB_LastCloseFriend.XML";
         private readonly UserDataManager r_UserDataManager = Singleton<UserDataManager>.Instance;
+        private readonly DBHandlerAdapter r_DBHandlerAdapter = new DBHandlerAdapter();
 
         public FindPlaceForm()
         {
@@ -168,7 +168,7 @@ namespace MyFacebookApp
         {
             try
             {
-                List<string> lastFriendsnamesList = XMLToListAdapter.LoadLastFriendsList();
+                List<string> lastFriendsnamesList = r_DBHandlerAdapter.LoadLastFriendsList();
                 List<User> lastFriendsList = stringListToUserList(lastFriendsnamesList);
                 loadListToSelectedFriends(lastFriendsList);
             }
@@ -275,10 +275,8 @@ namespace MyFacebookApp
         {
             List<User> selectedFriends = listBoxSelected.Items.Cast<User>().ToList<User>();
             List<string> selectedFriendsNames = selectedFriends.ConvertAll(user => user.Name);
-            XMLToListAdapter.writeLastFriendsList(selectedFriendsNames);
-
+            r_DBHandlerAdapter.writeLastFriendsList(selectedFriendsNames);
         }
-
 
 
         private void buttonBack_Click(object sender, EventArgs e)

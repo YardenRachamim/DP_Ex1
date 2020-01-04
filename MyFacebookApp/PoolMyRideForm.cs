@@ -1,5 +1,4 @@
 ﻿using FacebookWrapper.ObjectModel;
-using DataHandler;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +18,7 @@ namespace MyFacebookApp
         private Panel m_CurrentVisiblePanel;
         private readonly UserDataManager r_UserDataManager = Singleton<UserDataManager>.Instance;
         //private readonly User r_LoggedInUser = Singleton<UserDataManager>.Instance.LoggedInUser;
-        private readonly DBHandler r_DBHandler = Singleton<DBHandler>.Instance;
+        private readonly DBHandlerAdapter r_DBHandlerAdapter = new DBHandlerAdapter();
         private Dictionary<string, RideGroup> m_UserGroupNameIDMapping = new Dictionary<string, RideGroup>();
 
         public PoolMyRideForm()
@@ -42,7 +41,7 @@ namespace MyFacebookApp
             try
             {
                 string userID = r_UserDataManager.Id;
-                List<string> rideGroupIDs = r_DBHandler.FetchAllUserRideGroupsIDs(userID);
+                List<string> rideGroupIDs = r_DBHandlerAdapter.FetchAllUserRideGroupsIDs(userID);
 
                 foreach (string ID in rideGroupIDs)
                 {
@@ -72,7 +71,7 @@ namespace MyFacebookApp
 
                         rideGroup = new RideGroup(friendList.Name);
 
-                        List<string> eventIds = r_DBHandler.FetchAllGroupRideEvents(friendList.Id);
+                        List<string> eventIds = r_DBHandlerAdapter.FetchAllGroupRideEvents(friendList.Id);
 
                         foreach (string eventId in eventIds)
                         {
@@ -205,7 +204,7 @@ namespace MyFacebookApp
                     controlsData.RideDate,
                     i_Description: eventDescription);
 
-                r_DBHandler.SaveEventToGroupRide(rideGroup.Id, eventRide.Id);
+                r_DBHandlerAdapter.SaveEventToGroupRide(rideGroup.Id, eventRide.Id);
             }
             catch(Exception ex)
             {
@@ -378,7 +377,7 @@ namespace MyFacebookApp
         {
             try
             {
-                List<string> userGroupRideIDs = r_DBHandler.FetchAllUserRideGroupsIDs(r_UserDataManager.Id);
+                List<string> userGroupRideIDs = r_DBHandlerAdapter.FetchAllUserRideGroupsIDs(r_UserDataManager.Id);
                 
                 RideGroups_listBox.Items.Clear();
 
