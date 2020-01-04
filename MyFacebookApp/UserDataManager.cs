@@ -15,6 +15,7 @@ namespace MyFacebookApp
         {
         }
 
+        #region Fields
         private FacebookObjectCollection<User> m_Friends;
         public FacebookObjectCollection<User> Friends
         {
@@ -48,12 +49,25 @@ namespace MyFacebookApp
         {
             get
             {
-                if (m_Posts == null)
-                {
-                    m_Posts = LoggedInUser.Posts;
-                }
-
+                Func<FacebookObjectCollection<Post>> lazyPropert = new Func<FacebookObjectCollection<Post>>(
+                    () => LoggedInUser.Posts
+                    );
+                newGet(lazyPropert, ref m_Posts);
                 return m_Posts;
+                //if (m_Posts == null)
+                //{
+                //    m_Posts = LoggedInUser.Posts;
+                //}
+
+                //return m_Posts;
+            }
+        }
+
+        private void newGet<T>(Func<T> lazyProperty ,ref T io_ClassMember)
+        {
+            if(io_ClassMember == null)
+            {
+                io_ClassMember = lazyProperty();
             }
         }
 
@@ -228,12 +242,16 @@ namespace MyFacebookApp
                 m_LoggedInUser = value;
             }
         }
+        #endregion Fields
+
+
 
         public void RestartLoggedInUser()
         {
-            foreach (FieldInfo fieldInfo in typeof(UserDataManager).GetFields(BindingFlags.NonPublic | BindingFlags.Instance))
+            FieldInfo[] userDataManagerFieldInfo = typeof(UserDataManager).GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+
+            foreach (FieldInfo fieldInfo in userDataManagerFieldInfo)
             {
-                var fieldName = fieldInfo.Name;
                 fieldInfo.SetValue(this, null);
             }
         }
