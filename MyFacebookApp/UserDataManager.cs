@@ -21,10 +21,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if (m_Friends == null)
-                {
-                    m_Friends = LoggedInUser.Friends;
-                }
+                Func<FacebookObjectCollection<User>> lazyProperty = new Func<FacebookObjectCollection<User>>(() => LoggedInUser.Friends);
+                commonGetProcess(lazyProperty, ref m_Friends);
 
                 return m_Friends;
             }
@@ -35,10 +33,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if (m_Albums == null)
-                {
-                    m_Albums = LoggedInUser.Albums;
-                }
+                Func<FacebookObjectCollection<Album>> lazyProperty = new Func<FacebookObjectCollection<Album>>(() => LoggedInUser.Albums);
+                commonGetProcess(lazyProperty, ref m_Albums);
 
                 return m_Albums;
             }
@@ -49,25 +45,10 @@ namespace MyFacebookApp
         {
             get
             {
-                Func<FacebookObjectCollection<Post>> lazyPropert = new Func<FacebookObjectCollection<Post>>(
-                    () => LoggedInUser.Posts
-                    );
-                newGet(lazyPropert, ref m_Posts);
+                Func<FacebookObjectCollection<Post>> lazyProperty = new Func<FacebookObjectCollection<Post>>(() => LoggedInUser.Posts);
+                commonGetProcess(lazyProperty, ref m_Posts);
+
                 return m_Posts;
-                //if (m_Posts == null)
-                //{
-                //    m_Posts = LoggedInUser.Posts;
-                //}
-
-                //return m_Posts;
-            }
-        }
-
-        private void newGet<T>(Func<T> lazyProperty ,ref T io_ClassMember)
-        {
-            if(io_ClassMember == null)
-            {
-                io_ClassMember = lazyProperty();
             }
         }
 
@@ -76,10 +57,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if (m_LikedPages == null)
-                {
-                    m_LikedPages = LoggedInUser.LikedPages;
-                }
+                Func<FacebookObjectCollection<Page>> lazyProperty = new Func<FacebookObjectCollection<Page>>(() => LoggedInUser.LikedPages);
+                commonGetProcess(lazyProperty, ref m_LikedPages);
 
                 return m_LikedPages;
             }
@@ -90,10 +69,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if (m_Hometown == null)
-                {
-                    m_Hometown = LoggedInUser.Hometown;
-                }
+                Func<City> lazyProperty = new Func<City>(() => LoggedInUser.Hometown);
+                commonGetProcess(lazyProperty, ref m_Hometown);
 
                 return m_Hometown;
             }
@@ -104,10 +81,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if (m_RelationshipStatus == null)
-                {
-                    m_RelationshipStatus = LoggedInUser.RelationshipStatus;
-                }
+                Func<User.eRelationshipStatus?> lazyProperty = new Func<User.eRelationshipStatus?>(() => LoggedInUser.RelationshipStatus);
+                commonGetProcess(lazyProperty, ref m_RelationshipStatus);
 
                 return m_RelationshipStatus;
             }
@@ -118,10 +93,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if (m_PictureNormalURL == null)
-                {
-                    m_PictureNormalURL = LoggedInUser.PictureNormalURL;
-                }
+                Func<string> lazyProperty = new Func<string>(() => LoggedInUser.PictureNormalURL);
+                commonGetProcess(lazyProperty, ref m_PictureNormalURL);
 
                 return m_PictureNormalURL;
             }
@@ -132,10 +105,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if (m_FirstName == null)
-                {
-                    m_FirstName = LoggedInUser.FirstName;
-                }
+                Func<string> lazyProperty = new Func<string>(() => LoggedInUser.FirstName);
+                commonGetProcess(lazyProperty, ref m_FirstName);
 
                 return m_FirstName;
             }
@@ -146,10 +117,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if (m_LastName == null)
-                {
-                    m_LastName = LoggedInUser.LastName;
-                }
+                Func<string> lazyProperty = new Func<string>(() => LoggedInUser.LastName);
+                commonGetProcess(lazyProperty, ref m_LastName);
 
                 return m_LastName;
             }
@@ -160,10 +129,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if (m_Birthday == null)
-                {
-                    m_Birthday = LoggedInUser.Birthday;
-                }
+                Func<string> lazyProperty = new Func<string>(() => LoggedInUser.Birthday);
+                commonGetProcess(lazyProperty, ref m_Birthday);
 
                 return m_Birthday;
             }
@@ -174,10 +141,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if (m_Religion == null)
-                {
-                    m_Religion = LoggedInUser.Religion;
-                }
+                Func<string> lazyProperty = new Func<string>(() => LoggedInUser.Religion);
+                commonGetProcess(lazyProperty, ref m_Religion);
 
                 return m_Religion;
             }
@@ -188,10 +153,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if (m_TimeZone == null)
-                {
-                    m_TimeZone = LoggedInUser.TimeZone;
-                }
+                Func<double?> lazyProperty = new Func<double?>(() => LoggedInUser.TimeZone);
+                commonGetProcess(lazyProperty, ref m_TimeZone);
 
                 return m_TimeZone;
             }
@@ -202,10 +165,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if(m_Id == null)
-                {
-                    m_Id = LoggedInUser.Id;
-                }
+                Func<string> lazyProperty = new Func<string>(() => LoggedInUser.Id);
+                commonGetProcess(lazyProperty, ref m_Id);
 
                 return m_Id;
             }
@@ -216,10 +177,8 @@ namespace MyFacebookApp
         {
             get
             {
-                if(m_Name == null)
-                {
-                    m_Name = LoggedInUser.Name;
-                }
+                Func<string> lazyProperty = new Func<string>(() => LoggedInUser.Name);
+                commonGetProcess(lazyProperty, ref m_Name);
 
                 return m_Name;
             }
@@ -244,7 +203,19 @@ namespace MyFacebookApp
         }
         #endregion Fields
 
-
+        private void commonGetProcess<T>(Func<T> i_LazyProperty, ref T io_ClassMember)
+        {
+            if (io_ClassMember == null)
+            {
+                lock (sr_Padlock)
+                {
+                    if (io_ClassMember == null)
+                    {
+                        io_ClassMember = i_LazyProperty();
+                    }
+                }
+            }
+        }
 
         public void RestartLoggedInUser()
         {
