@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="CommonPages\CommonPages.cs" />
     <Compile Include="DBHandler\DBHandler.cs" />
+    <Compile Include="DBHandler\IDBHandler.cs" />
     <Compile Include="FindPlaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,7 +86,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\WinFormUtils.cs" />
-    <Compile Include="XMLToListAdapter.cs" />
+    <Compile Include="DBHandler\DBHandlerAdapter.cs" />
     <EmbeddedResource Include="FindPlaceForm.resx">
       <DependentUpon>FindPlaceForm.cs</DependentUpon>
     </EmbeddedResource>

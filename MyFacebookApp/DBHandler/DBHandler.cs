@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace DataHandler
+namespace MyFacebookApp.MyDBHandler
 {
-    public class DBHandler
+    public class DBHandler : IDBHandler
     {
         private static readonly object sr_Padlock = new object();
         private const string k_FileLastFriendsListPath = "./DB_LastCloseFriend.XML";
 
-        // TOOD: debug
+        // TOOD: for debug
         private static string g1 = Guid.NewGuid().ToString();
         private static string g2 = Guid.NewGuid().ToString();
 
@@ -28,35 +28,40 @@ namespace DataHandler
 
         public string LastFriendsListPath { get { return k_FileLastFriendsListPath; } }
 
-        public List<string> FetchAllUserRideGroupsIDs(string i_UserID)
+        public XmlDocument FetchAllUserRideGroupsIDs(string i_UserID)
         {
             // ...
-            List<string> rideGroupIds = new List<string>();
+            string[] innerText = { g1, g2 };
+            XmlDocument xmlDoc = createXML("RideGroupIDs", "RideGroupID", innerText );
 
-            rideGroupIds.Add(g1);
-            rideGroupIds.Add(g2);
-
-            return rideGroupIds;
+            return xmlDoc;
         }
 
-        public List<string> FetchAllGroupRideEvents(string i_RideEventId)
+        public XmlDocument FetchAllGroupRideEvents(string i_RideEventId)
         {
             // ...
 
             List<string> rideIds = new List<string>();
+            XmlDocument xmlDoc;
 
-            if(i_RideEventId == g1)
+            if (i_RideEventId == g1)
             {
-                rideIds.Add(e11);
-                rideIds.Add(e12);
+                string[] inner = { e11, e12 };
+                xmlDoc = createXML("RideGroupIDs", "RideGroupID", inner);
 
             }
             else if(i_RideEventId == g2)
             {
-                rideIds.Add(e21);
+                string[] inner = { e21 };
+                xmlDoc = createXML("RideGroupIDs", "RideGroupID", inner);
+            }
+            else
+            {
+                string[] inner = { "" };
+                xmlDoc = createXML("RideGroupIDs", "RideGroupID", inner);
             }
 
-            return rideIds;
+            return xmlDoc;
         }
 
         public void SaveEventToGroupRide(string i_RideGroupId, string i_RideEventId)
@@ -72,19 +77,6 @@ namespace DataHandler
             doc.Load(i_FilePath);
 
             return doc;
-        }
-
-        private void createFileIfNotExist(string i_FilePath)
-        {
-            if (!File.Exists(i_FilePath))
-            {
-                // Create a file to write to.
-                using (StreamWriter sw = File.CreateText(i_FilePath))
-                {
-                    sw.WriteLine("<lastFriendsList>");
-                    sw.WriteLine("</lastFriendsList>");
-                }
-            }
         }
 
         public void WritrToXMLLastFreindsList(string i_FilePath, List<string> i_Items)
@@ -113,5 +105,41 @@ namespace DataHandler
                 //DoNothing
             }
         }
+        
+        private void createFileIfNotExist(string i_FilePath)
+        {
+            if (!File.Exists(i_FilePath))
+            {
+                // Create a file to write to.
+                using (StreamWriter sw = File.CreateText(i_FilePath))
+                {
+                    sw.WriteLine("<lastFriendsList>");
+                    sw.WriteLine("</lastFriendsList>");
+                }
+            }
+        }
+
+        private XmlDocument createXML(string i_Root, string i_Child, string[] i_InnerText)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            try
+            {
+                XmlNode rootNode = xmlDoc.CreateElement(i_Root);
+                xmlDoc.AppendChild(rootNode);
+                foreach (string text in i_InnerText)
+                {
+                    XmlNode userNode = xmlDoc.CreateElement(i_Child);
+                    userNode.InnerText = text;
+                    rootNode.AppendChild(userNode);
+                }
+            }
+            catch (Exception e)
+            {
+                //DoNothing
+            }
+
+            return xmlDoc;
+        }
+
     }
 }
