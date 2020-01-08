@@ -22,13 +22,28 @@ namespace MyFacebookApp
         private readonly UserDataManager r_UserDataManager = Singleton<UserDataManager>.Instance;
         private readonly DBHandlerAdapter r_DBHandlerAdapter = new DBHandlerAdapter();
 
+        // TODO: debug
+        private readonly BindingSource r_SelectedFriendsBinding = new BindingSource();
+        private readonly BindingSource r_NotSelectedFriendsBinding = new BindingSource();
+        private readonly List<User> r_NotSelectedUsers = new List<User>();
+        private readonly List<User> r_SelectedUsers = new List<User>();
+
         public FindPlaceForm()
         {
             InitializeComponent();
-            initializeFriendsList();
             initializeListView();
             initializeVisiblePanel();
             initializeListBoxs();
+
+            // TODO: debug
+            r_SelectedFriendsBinding.DataSource = r_SelectedUsers;
+            listBoxSelected.DataSource = r_SelectedFriendsBinding;
+
+            r_NotSelectedFriendsBinding.DataSource = r_NotSelectedUsers;
+            listBoxNotSelected.DataSource = r_NotSelectedFriendsBinding;
+
+            initializeFriendsList();
+
             ShowDialog();
         }
 
@@ -55,15 +70,10 @@ namespace MyFacebookApp
 
         private void initializeFriendsList()
         {
-            //if (r_UserDataManager.Friends == null)
-            //{
-            //    Singleton<UserDataManager>.Instance.Friends = Singleton<UserDataManager>.Instance.LoggedInUser.Friends;
-            //}
-
-            listBoxNotSelected.Items.Clear();
+            r_NotSelectedFriendsBinding.Clear();
             foreach (User friend in r_UserDataManager.Friends)
             {
-                listBoxNotSelected.Items.Add(friend);
+                r_NotSelectedFriendsBinding.Add(friend);
                 friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
             }
 
@@ -76,39 +86,39 @@ namespace MyFacebookApp
         private void listBoxNotSelected_SelectedIndexDoubleClicked(object sender, EventArgs e)
         {
             ListBox listBoxNotSelected = sender as ListBox;
-            moveFriendToOtherList(listBoxNotSelected, listBoxSelected);
+            moveFriendToOtherList(r_NotSelectedFriendsBinding, r_SelectedFriendsBinding, listBoxNotSelected.SelectedItem);
         }
 
         private void listBoxSelected_SelectedIndexDoubleClicked(object sender, EventArgs e)
         {
             ListBox listBoxSelected = sender as ListBox;
-            moveFriendToOtherList(listBoxSelected, listBoxNotSelected);
+            moveFriendToOtherList(r_SelectedFriendsBinding, r_NotSelectedFriendsBinding, listBoxSelected.SelectedItem);
         }
 
-        private void moveFriendToOtherList(ListBox i_ListBoxFrom, ListBox i_ListBoxTo)
+        private void moveFriendToOtherList(BindingSource i_SourceFrom, BindingSource i_SourceTo, object i_SelectedItem)
         {
-            if (i_ListBoxFrom.SelectedItem == null)
+            if (i_SelectedItem == null)
             {
                 return; //Nothing was selected
             }
-            User selectedFriend = i_ListBoxFrom.SelectedItem as User;
+            User selectedFriend = i_SelectedItem as User;
 
             if (selectedFriend == null)
             {
                 MessageBox.Show("Friend not found - ERROR");
             }
 
-            i_ListBoxFrom.Items.Remove(selectedFriend);
-            if (i_ListBoxTo.Name == "listBoxNotSelected")
+            i_SourceFrom.Remove(selectedFriend);
+            if (i_SourceTo == r_NotSelectedFriendsBinding)
             {
                 if (isContains(selectedFriend.Name, textBoxSearch.Text))
                 {
-                    i_ListBoxTo.Items.Add(selectedFriend);
+                    i_SourceTo.Add(selectedFriend);
                 }
             }
             else
             {
-                i_ListBoxTo.Items.Add(selectedFriend);
+                i_SourceTo.Add(selectedFriend);
             }
         }
 
@@ -130,15 +140,15 @@ namespace MyFacebookApp
         {
             string textThatChanged = textBoxSearch.Text;
 
-            listBoxNotSelected.Items.Clear();
+            r_NotSelectedFriendsBinding.Clear();
 
             foreach (User friend in r_UserDataManager.Friends)
             {
                 if (isContains(friend.Name, textThatChanged))
                 {
-                    if (!listBoxSelected.Items.Contains(friend))
+                    if (!r_SelectedFriendsBinding.Contains(friend))
                     {
-                        listBoxNotSelected.Items.Add(friend);
+                        r_NotSelectedFriendsBinding.Add(friend);
                     }
                 }
             }
@@ -195,12 +205,12 @@ namespace MyFacebookApp
         {
             foreach (User friend in i_LastFriendsList)
             {
-                if (listBoxNotSelected.Items.Contains(friend))
+                if (r_NotSelectedFriendsBinding.Contains(friend))
                 {
-                    listBoxNotSelected.Items.Remove(friend);
-                    if (!listBoxSelected.Items.Contains(friend))
+                    r_NotSelectedFriendsBinding.Remove(friend);
+                    if (!r_SelectedFriendsBinding.Contains(friend))
                     {
-                        listBoxSelected.Items.Add(friend);
+                        r_SelectedFriendsBinding.Add(friend);
                     }
                 }
             }
@@ -244,7 +254,7 @@ namespace MyFacebookApp
                     commonPages.Add(page);
                 }
 
-                foreach (string friendName in listBoxSelected.Items)
+                foreach (string friendName in r_SelectedFriendsBinding)
                 {
                     User friendUser = getSelectedUserByName(friendName);
 
@@ -273,8 +283,8 @@ namespace MyFacebookApp
 
         private void writeLastFriendsList()
         {
-            List<User> selectedFriends = listBoxSelected.Items.Cast<User>().ToList<User>();
-            List<string> selectedFriendsNames = selectedFriends.ConvertAll(user => user.Name);
+            //List<User> selectedFriends = r_SelectedFriendsBinding.Cast<User>().ToList<User>();
+            List<string> selectedFriendsNames = r_SelectedUsers.ConvertAll(user => user.Name);
             r_DBHandlerAdapter.writeLastFriendsList(selectedFriendsNames);
         }
 
