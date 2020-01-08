@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Xml;
 using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
+using MyFacebookApp.MyDBHandler;
 
 namespace MyFacebookApp
 {
@@ -20,7 +21,7 @@ namespace MyFacebookApp
         private const string k_SearchBoxLabel = "Name...";
         private const string k_FileLastFriendsListPath = "./DB_LastCloseFriend.XML";
         private readonly UserDataManager r_UserDataManager = Singleton<UserDataManager>.Instance;
-        private readonly DBHandlerAdapter r_DBHandlerAdapter = new DBHandlerAdapter();
+        private readonly IDBHandler r_DBHandlerAdapter = new DBHandlerAdapter();
 
         // TODO: debug
         private readonly BindingSource r_SelectedFriendsBinding = new BindingSource();
@@ -285,7 +286,7 @@ namespace MyFacebookApp
         {
             //List<User> selectedFriends = r_SelectedFriendsBinding.Cast<User>().ToList<User>();
             List<string> selectedFriendsNames = r_SelectedUsers.ConvertAll(user => user.Name);
-            r_DBHandlerAdapter.writeLastFriendsList(selectedFriendsNames);
+            r_DBHandlerAdapter.WriteLastFriendsList(selectedFriendsNames);
         }
 
 

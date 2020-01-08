@@ -8,14 +8,14 @@ namespace MyFacebookApp.MyDBHandler
 {
     public interface IDBHandler
     {
-        XmlDocument FetchAllUserRideGroupsIDs(string i_UserID);
+        List<string> FetchAllUserRideGroupsIDs(string i_UserID);
 
-        XmlDocument FetchAllGroupRideEvents(string i_RideEventId);
+        List<string> FetchAllGroupRideEvents(string i_RideEventId);
 
         void SaveEventToGroupRide(string i_RideGroupId, string i_RideEventId);
 
-        XmlDocument LoadXMLFromPath(string i_FilePath);
+        List<string> LoadLastFriendsList();
 
-        void WritrToXMLLastFreindsList(string i_FilePath, List<string> i_Items);
+        void WriteLastFriendsList(List<string> i_NamesList);
     }
 } 

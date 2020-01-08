@@ -9,7 +9,7 @@ using System.Xml;
 
 namespace MyFacebookApp.MyDBHandler
 {
-    public class DBHandler : IDBHandler
+    public class DBHandler
     {
         private static readonly object sr_Padlock = new object();
         private const string k_FileLastFriendsListPath = "./DB_LastCloseFriend.XML";

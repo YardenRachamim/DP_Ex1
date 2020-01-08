@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using Utils;
 using PoolMyRide;
+using MyFacebookApp.MyDBHandler;
 
 namespace MyFacebookApp
 {
@@ -18,7 +19,7 @@ namespace MyFacebookApp
         private Panel m_CurrentVisiblePanel;
         private readonly UserDataManager r_UserDataManager = Singleton<UserDataManager>.Instance;
         //private readonly User r_LoggedInUser = Singleton<UserDataManager>.Instance.LoggedInUser;
-        private readonly DBHandlerAdapter r_DBHandlerAdapter = new DBHandlerAdapter();
+        private readonly IDBHandler r_DBHandlerAdapter = new DBHandlerAdapter();
         private Dictionary<string, RideGroup> m_UserGroupNameIDMapping = new Dictionary<string, RideGroup>();
 
         public PoolMyRideForm()

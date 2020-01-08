@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace MyFacebookApp
 {
-    public class DBHandlerAdapter
+    public class DBHandlerAdapter : IDBHandler
     {
         private readonly DBHandler r_DBHandler = Singleton<DBHandler>.Instance;
 
@@ -17,7 +17,7 @@ namespace MyFacebookApp
             return list;
         }
 
-        public void writeLastFriendsList(List<string> i_NamesList)
+        public void WriteLastFriendsList(List<string> i_NamesList)
         {
             string path = r_DBHandler.LastFriendsListPath;
             writeXMLList(i_NamesList, path);
