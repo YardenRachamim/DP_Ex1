@@ -9,7 +9,6 @@ namespace MyFacebookApp
 {
     public sealed class UserDataManager
     {
-        //private static UserDataManager s_UserDataManager = null;
         private static readonly object sr_Padlock = new object();
         private UserDataManager()
         {

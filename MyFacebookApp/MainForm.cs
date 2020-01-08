@@ -9,8 +9,6 @@ namespace MyFacebookApp
 {
     public partial class MainForm : Form
     {
-       // private FacebookObjectCollection<Post> UIManager.Instance.Posts;
-       // private FacebookObjectCollection<Album> UIManager.Instance.Albums;
         private readonly LoginForm r_LoginForm;
         private readonly UserDataManager r_UserDataManager;
 
@@ -219,6 +217,5 @@ namespace MyFacebookApp
             r_UserDataManager.RestartLoggedInUser();
         }
         #endregion Logout
-
     }
 }
