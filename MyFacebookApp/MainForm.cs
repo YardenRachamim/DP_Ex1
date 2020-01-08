@@ -1,6 +1,7 @@
 ﻿using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -21,13 +22,6 @@ namespace MyFacebookApp
             r_LoginForm.ShowDialog();
         }
 
-       // public FacebookObjectCollection<User> Friends { get; set; }
-
-        private void fetchUserPicture()
-        {
-            LoggedInUserPictureBox.LoadAsync(r_UserDataManager.PictureNormalURL);
-        }
-
         public void StartForm()
         {
             this.ShowDialog();
@@ -38,6 +32,12 @@ namespace MyFacebookApp
             base.OnLoad(e);
             fetchUserPicture();
             fetchUserDetails();
+        }
+
+        #region fetch/unfetch data
+        private void fetchUserPicture()
+        {
+            LoggedInUserPictureBox.LoadAsync(r_UserDataManager.PictureNormalURL);
         }
 
         private void fetchUserDetails()
@@ -72,11 +72,7 @@ namespace MyFacebookApp
 
         private void fetchUserPosts()
         {
-            //if (r_UserDataManager.Posts == null)
-            //{
-            //    r_UserDataManager.Posts = r_UserDataManager.LoggedInUser.Posts;
-            //}
-
+            // TODO: add threads
             foreach (Post post in r_UserDataManager.Posts)
             {
                 if (post.Message != null)
@@ -114,11 +110,7 @@ namespace MyFacebookApp
 
         private void fetchUserAlbums()
         {
-            //if (r_UserDataManager.Albums == null)
-            //{
-            //    r_UserDataManager.Albums = r_UserDataManager.LoggedInUser.Albums;
-            //}
-
+            // TODO: add threads
             foreach (Album album in r_UserDataManager.Albums)
             {
                 if (album.Name != null)
@@ -153,11 +145,7 @@ namespace MyFacebookApp
 
         private void fetchUserFriends()
         {
-            //if (r_UserDataManager.Friends == null)
-            //{
-            //    r_UserDataManager.Friends = r_UserDataManager.LoggedInUser.Friends;
-            //}
-
+            // TODO: add threads
             foreach (User friend in r_UserDataManager.Friends)
             {
                 listBoxFriends.Items.Add(friend.Name);
@@ -174,7 +162,9 @@ namespace MyFacebookApp
         {
             listBoxFriends.Items.Clear();
         }
+        #endregion fetch/unfetch data
 
+        #region show other forms
         private void buttonFindPlaces_Click(object sender, EventArgs e)
         {
             FindPlaceForm findPlaceForm = new FindPlaceForm();
@@ -186,6 +176,7 @@ namespace MyFacebookApp
 
             poolMyRideForm.ShowDialog();
         }
+        #endregion show other forms
 
         #region Logout
         private void buttonLogOut_Click(object sender, EventArgs e)
