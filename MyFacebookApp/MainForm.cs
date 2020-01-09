@@ -10,7 +10,7 @@ namespace MyFacebookApp
     public partial class MainForm : Form
     {
         private readonly LoginForm r_LoginForm;
-        private readonly UserDataManager r_UserDataManager;
+        private readonly IUserDataManager r_UserDataManager;
 
         public MainForm()
         {

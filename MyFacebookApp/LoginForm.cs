@@ -14,7 +14,7 @@ namespace MyFacebookApp
     public partial class LoginForm : Form
     {
         MainForm m_MainForm;
-        private UserDataManager m_UserDataManager = Singleton<UserDataManager>.Instance;
+        private readonly IUserDataManager r_UserDataManager = Singleton<UserDataManager>.Instance;
 
         public LoginForm(MainForm i_MainForm)
         {
@@ -77,7 +77,7 @@ namespace MyFacebookApp
 
             if (!string.IsNullOrEmpty(result.AccessToken))
             {
-                m_UserDataManager.LoggedInUser = result.LoggedInUser;
+                r_UserDataManager.LoggedInUser = result.LoggedInUser;
                 this.Hide();
                 m_MainForm.StartForm();
             }

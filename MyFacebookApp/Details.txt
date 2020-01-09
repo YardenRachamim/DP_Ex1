@@ -1,8 +1,8 @@
 ==========================Exercise Checking Report==========================
-Exercise No...........: 1
+Exercise No...........: 2
 First Student Details.: 312275431 Maayan Wagenheim
 Second Student Details: 204623284 Yarden Rachamim
-Delivery Date.........: 08.12.2019
+Delivery Date.........: 09.01.2020
 Delivered In Delay....: No
 Delay Reason..........: 
 Comments..............: 

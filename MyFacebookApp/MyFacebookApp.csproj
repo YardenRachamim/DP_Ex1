@@ -60,9 +60,10 @@
     <Compile Include="FindPlaceForm.Designer.cs">
       <DependentUpon>FindPlaceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserManager\IUserDataManager.cs" />
     <Compile Include="PoolMyRide\RideGroup.cs" />
     <Compile Include="Utils\Singleton.cs" />
-    <Compile Include="UserDataManager.cs" />
+    <Compile Include="UserManager\UserDataManager.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +110,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="A20 Ex02 Maayan 312275431 Yarden 204623284.docx" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

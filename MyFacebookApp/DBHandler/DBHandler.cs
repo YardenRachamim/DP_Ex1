@@ -11,7 +11,7 @@ namespace MyFacebookApp.MyDBHandler
 {
     public class DBHandler
     {
-        private static readonly object sr_Padlock = new object();
+        //private static readonly object sr_Padlock = new object();
         private const string k_FileLastFriendsListPath = "./DB_LastCloseFriend.XML";
 
         // TOOD: for debug

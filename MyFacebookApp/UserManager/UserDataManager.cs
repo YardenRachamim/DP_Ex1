@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MyFacebookApp
 {
-    public sealed class UserDataManager
+    public sealed class UserDataManager : IUserDataManager
     {
         private static readonly object sr_Padlock = new object();
         private UserDataManager()

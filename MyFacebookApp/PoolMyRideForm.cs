@@ -17,8 +17,7 @@ namespace MyFacebookApp
     public partial class PoolMyRideForm : Form
     {
         private Panel m_CurrentVisiblePanel;
-        private readonly UserDataManager r_UserDataManager = Singleton<UserDataManager>.Instance;
-        //private readonly User r_LoggedInUser = Singleton<UserDataManager>.Instance.LoggedInUser;
+        private readonly IUserDataManager r_UserDataManager = Singleton<UserDataManager>.Instance;
         private readonly IDBHandler r_DBHandlerAdapter = new DBHandlerAdapter();
         private Dictionary<string, RideGroup> m_UserGroupNameIDMapping = new Dictionary<string, RideGroup>();
 

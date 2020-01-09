@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MyFacebookApp.DBHandlerAdapter">
+    <Position X="2.5" Y="2.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAABABQAAAgAAAAAgAAACAAAAAAAAAAEEAAAAA=</HashCode>
+      <FileName>DBHandler\DBHandlerAdapter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="1.458" />
+  </Class>
+  <Class Name="MyFacebookApp.MyDBHandler.DBHandler">
+    <Position X="5.75" Y="1.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAABAABAAACABAAAAAAACKAAAAAAAFEAAAAA=</HashCode>
+      <FileName>DBHandler\DBHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyFacebookApp.MainForm">
+    <Position X="9.25" Y="3.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAAUKDBBBgAQCAHAoAQCBHIgFAAAIAgAAQAggAA=</HashCode>
+      <FileName>MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyFacebookApp.LoginForm">
+    <Position X="5.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIABAABCAAAAgAAADAAAASAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>LoginForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyFacebookApp.UserDataManager">
+    <Position X="14.25" Y="14" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>FBADgEAEBIIBAEAADAEAQIYCAAIqBCQAAAACCAAAIAg=</HashCode>
+      <FileName>UserManager\UserDataManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MyFacebookApp.FindPlaceForm">
+    <Position X="5.75" Y="15" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAIMAAAAADQBgFEAHAPALkCCBEEBCLgCDQIBAABAAgA=</HashCode>
+      <FileName>FindPlaceForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyFacebookApp.Singleton&lt;T&gt;">
+    <Position X="10.75" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAQAAAAAAAACA=</HashCode>
+      <FileName>Utils\Singleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="MyFacebookApp.MyDBHandler.IDBHandler">
+    <Position X="0.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAABAAAAAAAAAAAAAACAAAAAAAAAAEEAAAAA=</HashCode>
+      <FileName>DBHandler\IDBHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

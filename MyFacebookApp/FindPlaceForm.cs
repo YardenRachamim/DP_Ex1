@@ -20,10 +20,9 @@ namespace MyFacebookApp
         private Panel m_visiblePanel;
         private const string k_SearchBoxLabel = "Name...";
         private const string k_FileLastFriendsListPath = "./DB_LastCloseFriend.XML";
-        private readonly UserDataManager r_UserDataManager = Singleton<UserDataManager>.Instance;
+        private readonly IUserDataManager r_UserDataManager = Singleton<UserDataManager>.Instance;
         private readonly IDBHandler r_DBHandlerAdapter = new DBHandlerAdapter();
-
-        // TODO: debug
+        
         private readonly BindingSource r_SelectedFriendsBinding = new BindingSource();
         private readonly BindingSource r_NotSelectedFriendsBinding = new BindingSource();
         private readonly List<User> r_NotSelectedUsers = new List<User>();
@@ -35,17 +34,18 @@ namespace MyFacebookApp
             initializeListView();
             initializeVisiblePanel();
             initializeListBoxs();
+            initializeBindingSource();
+            initializeFriendsList();
+            ShowDialog();
+        }
 
-            // TODO: debug
+        private void initializeBindingSource()
+        {
             r_SelectedFriendsBinding.DataSource = r_SelectedUsers;
             listBoxSelected.DataSource = r_SelectedFriendsBinding;
 
             r_NotSelectedFriendsBinding.DataSource = r_NotSelectedUsers;
             listBoxNotSelected.DataSource = r_NotSelectedFriendsBinding;
-
-            initializeFriendsList();
-
-            ShowDialog();
         }
 
         private void initializeListBoxs()
@@ -175,7 +175,7 @@ namespace MyFacebookApp
             resetLabelTextBoxSearch(k_SearchBoxLabel);
         }
 
-        private void buttonLoadXMLList_Click(object sender, EventArgs e)
+        private void buttonLoadList_Click(object sender, EventArgs e)
         {
             try
             {
@@ -284,7 +284,6 @@ namespace MyFacebookApp
 
         private void writeLastFriendsList()
         {
-            //List<User> selectedFriends = r_SelectedFriendsBinding.Cast<User>().ToList<User>();
             List<string> selectedFriendsNames = r_SelectedUsers.ConvertAll(user => user.Name);
             r_DBHandlerAdapter.WriteLastFriendsList(selectedFriendsNames);
         }

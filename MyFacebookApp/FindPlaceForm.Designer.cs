@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonLoadXMLList = new System.Windows.Forms.Button();
+            this.buttonLoadList = new System.Windows.Forms.Button();
             this.listBoxNotSelected = new System.Windows.Forms.ListBox();
             this.listBoxSelected = new System.Windows.Forms.ListBox();
             this.panelSelsectFriends = new System.Windows.Forms.Panel();
@@ -49,36 +49,33 @@
             this.panelPagesResults.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonLoadXMLList
+            // buttonLoadList
             // 
-            this.buttonLoadXMLList.Location = new System.Drawing.Point(17, 521);
-            this.buttonLoadXMLList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonLoadXMLList.Name = "buttonLoadXMLList";
-            this.buttonLoadXMLList.Size = new System.Drawing.Size(220, 40);
-            this.buttonLoadXMLList.TabIndex = 2;
-            this.buttonLoadXMLList.Text = "Load last close friend List";
-            this.buttonLoadXMLList.UseVisualStyleBackColor = true;
-            this.buttonLoadXMLList.Click += new System.EventHandler(this.buttonLoadXMLList_Click);
+            this.buttonLoadList.Location = new System.Drawing.Point(15, 417);
+            this.buttonLoadList.Name = "buttonLoadList";
+            this.buttonLoadList.Size = new System.Drawing.Size(196, 32);
+            this.buttonLoadList.TabIndex = 2;
+            this.buttonLoadList.Text = "Load last close friend List";
+            this.buttonLoadList.UseVisualStyleBackColor = true;
+            this.buttonLoadList.Click += new System.EventHandler(this.buttonLoadList_Click);
             // 
             // listBoxNotSelected
             // 
             this.listBoxNotSelected.FormattingEnabled = true;
-            this.listBoxNotSelected.ItemHeight = 20;
-            this.listBoxNotSelected.Location = new System.Drawing.Point(17, 89);
-            this.listBoxNotSelected.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.listBoxNotSelected.ItemHeight = 16;
+            this.listBoxNotSelected.Location = new System.Drawing.Point(15, 71);
             this.listBoxNotSelected.Name = "listBoxNotSelected";
-            this.listBoxNotSelected.Size = new System.Drawing.Size(337, 404);
+            this.listBoxNotSelected.Size = new System.Drawing.Size(300, 324);
             this.listBoxNotSelected.TabIndex = 3;
             this.listBoxNotSelected.DoubleClick += new System.EventHandler(this.listBoxNotSelected_SelectedIndexDoubleClicked);
             // 
             // listBoxSelected
             // 
             this.listBoxSelected.FormattingEnabled = true;
-            this.listBoxSelected.ItemHeight = 20;
-            this.listBoxSelected.Location = new System.Drawing.Point(480, 89);
-            this.listBoxSelected.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.listBoxSelected.ItemHeight = 16;
+            this.listBoxSelected.Location = new System.Drawing.Point(427, 71);
             this.listBoxSelected.Name = "listBoxSelected";
-            this.listBoxSelected.Size = new System.Drawing.Size(337, 404);
+            this.listBoxSelected.Size = new System.Drawing.Size(300, 324);
             this.listBoxSelected.TabIndex = 4;
             this.listBoxSelected.DoubleClick += new System.EventHandler(this.listBoxSelected_SelectedIndexDoubleClicked);
             // 
@@ -88,16 +85,15 @@
             this.panelSelsectFriends.Controls.Add(this.pictureBoxClearSearch);
             this.panelSelsectFriends.Controls.Add(this.buttonFindPlaces);
             this.panelSelsectFriends.Controls.Add(this.label3);
-            this.panelSelsectFriends.Controls.Add(this.buttonLoadXMLList);
+            this.panelSelsectFriends.Controls.Add(this.buttonLoadList);
             this.panelSelsectFriends.Controls.Add(this.label2);
             this.panelSelsectFriends.Controls.Add(this.textBoxSearch);
             this.panelSelsectFriends.Controls.Add(this.pictureBoxArrows);
             this.panelSelsectFriends.Controls.Add(this.listBoxNotSelected);
             this.panelSelsectFriends.Controls.Add(this.listBoxSelected);
-            this.panelSelsectFriends.Location = new System.Drawing.Point(14, 19);
-            this.panelSelsectFriends.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelSelsectFriends.Location = new System.Drawing.Point(12, 15);
             this.panelSelsectFriends.Name = "panelSelsectFriends";
-            this.panelSelsectFriends.Size = new System.Drawing.Size(853, 596);
+            this.panelSelsectFriends.Size = new System.Drawing.Size(758, 477);
             this.panelSelsectFriends.TabIndex = 6;
             // 
             // labelSearchBox
@@ -106,9 +102,9 @@
             this.labelSearchBox.BackColor = System.Drawing.Color.White;
             this.labelSearchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.labelSearchBox.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.labelSearchBox.Location = new System.Drawing.Point(30, 9);
+            this.labelSearchBox.Location = new System.Drawing.Point(27, 7);
             this.labelSearchBox.Name = "labelSearchBox";
-            this.labelSearchBox.Size = new System.Drawing.Size(60, 18);
+            this.labelSearchBox.Size = new System.Drawing.Size(54, 16);
             this.labelSearchBox.TabIndex = 12;
             this.labelSearchBox.Text = "Name...";
             // 
@@ -116,10 +112,9 @@
             // 
             this.pictureBoxClearSearch.ImageLocation = "https://cdn2.iconfinder.com/data/icons/media-and-navigation-buttons-round/512/But" +
     "ton_12-512.png";
-            this.pictureBoxClearSearch.Location = new System.Drawing.Point(330, 9);
-            this.pictureBoxClearSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBoxClearSearch.Location = new System.Drawing.Point(293, 7);
             this.pictureBoxClearSearch.Name = "pictureBoxClearSearch";
-            this.pictureBoxClearSearch.Size = new System.Drawing.Size(17, 19);
+            this.pictureBoxClearSearch.Size = new System.Drawing.Size(15, 15);
             this.pictureBoxClearSearch.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxClearSearch.TabIndex = 8;
             this.pictureBoxClearSearch.TabStop = false;
@@ -127,10 +122,9 @@
             // 
             // buttonFindPlaces
             // 
-            this.buttonFindPlaces.Location = new System.Drawing.Point(583, 4);
-            this.buttonFindPlaces.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonFindPlaces.Location = new System.Drawing.Point(518, 3);
             this.buttonFindPlaces.Name = "buttonFindPlaces";
-            this.buttonFindPlaces.Size = new System.Drawing.Size(235, 38);
+            this.buttonFindPlaces.Size = new System.Drawing.Size(209, 30);
             this.buttonFindPlaces.TabIndex = 7;
             this.buttonFindPlaces.Text = "Find places liked by all";
             this.buttonFindPlaces.UseVisualStyleBackColor = true;
@@ -139,28 +133,27 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(477, 48);
+            this.label3.Location = new System.Drawing.Point(424, 38);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 20);
+            this.label3.Size = new System.Drawing.Size(63, 17);
             this.label3.TabIndex = 11;
             this.label3.Text = "Selected";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 48);
+            this.label2.Location = new System.Drawing.Point(12, 38);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 20);
+            this.label2.Size = new System.Drawing.Size(87, 17);
             this.label2.TabIndex = 10;
             this.label2.Text = "Not selected";
             // 
             // textBoxSearch
             // 
             this.textBoxSearch.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.textBoxSearch.Location = new System.Drawing.Point(17, 5);
-            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxSearch.Location = new System.Drawing.Point(15, 4);
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(338, 26);
+            this.textBoxSearch.Size = new System.Drawing.Size(301, 22);
             this.textBoxSearch.TabIndex = 9;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             // 
@@ -168,10 +161,9 @@
             // 
             this.pictureBoxArrows.ImageLocation = "https://cdn.iconscout.com/icon/free/png-512/arrow-path-way-direction-sign-bidirec" +
     "tional-left-right-2-30091.png";
-            this.pictureBoxArrows.Location = new System.Drawing.Point(387, 265);
-            this.pictureBoxArrows.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBoxArrows.Location = new System.Drawing.Point(344, 212);
             this.pictureBoxArrows.Name = "pictureBoxArrows";
-            this.pictureBoxArrows.Size = new System.Drawing.Size(63, 75);
+            this.pictureBoxArrows.Size = new System.Drawing.Size(56, 60);
             this.pictureBoxArrows.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxArrows.TabIndex = 5;
             this.pictureBoxArrows.TabStop = false;
@@ -179,19 +171,18 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 39);
+            this.label1.Location = new System.Drawing.Point(16, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(174, 20);
+            this.label1.Size = new System.Drawing.Size(153, 17);
             this.label1.TabIndex = 13;
             this.label1.Text = "Sorted Common Pages";
             // 
             // listViewCommonPages
             // 
             this.listViewCommonPages.HideSelection = false;
-            this.listViewCommonPages.Location = new System.Drawing.Point(21, 64);
-            this.listViewCommonPages.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.listViewCommonPages.Location = new System.Drawing.Point(19, 51);
             this.listViewCommonPages.Name = "listViewCommonPages";
-            this.listViewCommonPages.Size = new System.Drawing.Size(764, 476);
+            this.listViewCommonPages.Size = new System.Drawing.Size(680, 382);
             this.listViewCommonPages.TabIndex = 14;
             this.listViewCommonPages.UseCompatibleStateImageBehavior = false;
             // 
@@ -200,18 +191,16 @@
             this.panelPagesResults.Controls.Add(this.buttonBack);
             this.panelPagesResults.Controls.Add(this.listViewCommonPages);
             this.panelPagesResults.Controls.Add(this.label1);
-            this.panelPagesResults.Location = new System.Drawing.Point(14, 15);
-            this.panelPagesResults.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panelPagesResults.Location = new System.Drawing.Point(12, 12);
             this.panelPagesResults.Name = "panelPagesResults";
-            this.panelPagesResults.Size = new System.Drawing.Size(849, 600);
+            this.panelPagesResults.Size = new System.Drawing.Size(755, 480);
             this.panelPagesResults.TabIndex = 13;
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(21, 568);
-            this.buttonBack.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonBack.Location = new System.Drawing.Point(19, 454);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(84, 29);
+            this.buttonBack.Size = new System.Drawing.Size(75, 23);
             this.buttonBack.TabIndex = 15;
             this.buttonBack.Text = "Back";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -219,12 +208,11 @@
             // 
             // FindPlaceForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1206, 632);
+            this.ClientSize = new System.Drawing.Size(1072, 506);
             this.Controls.Add(this.panelSelsectFriends);
             this.Controls.Add(this.panelPagesResults);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FindPlaceForm";
             this.Text = "Find places to hang out with close friends";
             this.panelSelsectFriends.ResumeLayout(false);
@@ -238,7 +226,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button buttonLoadXMLList;
+        private System.Windows.Forms.Button buttonLoadList;
         private System.Windows.Forms.ListBox listBoxNotSelected;
         private System.Windows.Forms.ListBox listBoxSelected;
         private System.Windows.Forms.Panel panelSelsectFriends;
