@@ -246,28 +246,23 @@ namespace MyFacebookApp
         private void findCommonPlacesLikedByAllFriends()
         {
             CommonPages commonPages = new CommonPages();
-            List<KeyValuePair<Page, int>> sortedLikedPages;
 
             try
             { 
-                foreach (Page page in r_UserDataManager.LikedPages)
+                //foreach (Page page in r_UserDataManager.LikedPages)
                 {
-                    commonPages.Add(page);
+                  //  commonPages.Add(page);
                 }
 
-                foreach (string friendName in r_SelectedFriendsBinding)
+                foreach (User friend in r_SelectedFriendsBinding)
                 {
-                    User friendUser = getSelectedUserByName(friendName);
-
-                    foreach (Page page in friendUser.LikedPages)
+                    foreach (Page page in friend.LikedPages)
                     {
                         commonPages.Add(page);
                     }
                 }
-
-                sortedLikedPages = commonPages.GetSortedPagesByCommonLikesAsPairs();
-
-                foreach (KeyValuePair<Page, int> pagePair in sortedLikedPages)
+                
+                foreach (KeyValuePair<Page, int> pagePair in commonPages)
                 {
                     ListViewItem item = new ListViewItem(pagePair.Key.Name);
                     item.SubItems.Add(pagePair.Value.ToString());
@@ -275,7 +270,7 @@ namespace MyFacebookApp
                 }
 
             }
-            catch(Facebook.FacebookOAuthException e)
+            catch(Exception e)
             {
                 //Facebook "OAuthException -#100 - Pages Public Content Access requires either app secret proof or an app token"
             }
