@@ -404,9 +404,7 @@ namespace MyFacebookApp
 
             if (chosenGroup != null)
             {
-                bool isNeedToJoinManually;
-
-                chosenGroup.AddMember(r_UserDataManager.LoggedInUser, out isNeedToJoinManually);
+                chosenGroup.AddMember(r_UserDataManager.LoggedInUser, out bool isNeedToJoinManually);
 
                 if (isNeedToJoinManually)
                 {

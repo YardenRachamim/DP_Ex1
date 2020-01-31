@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.LoggedInUserPictureBox = new System.Windows.Forms.PictureBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.labelUserDetails = new System.Windows.Forms.Label();
             this.listBoxDetails = new System.Windows.Forms.ListBox();
             this.listBoxPosts = new System.Windows.Forms.ListBox();
@@ -42,34 +41,22 @@
             this.buttonPoolMyRide = new System.Windows.Forms.Button();
             this.buttonLogOut = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.LoggedInUserPictureBox)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // LoggedInUserPictureBox
             // 
-            this.LoggedInUserPictureBox.Location = new System.Drawing.Point(3, 39);
+            this.LoggedInUserPictureBox.Location = new System.Drawing.Point(13, 54);
             this.LoggedInUserPictureBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.LoggedInUserPictureBox.Name = "LoggedInUserPictureBox";
             this.LoggedInUserPictureBox.Size = new System.Drawing.Size(148, 145);
             this.LoggedInUserPictureBox.TabIndex = 0;
             this.LoggedInUserPictureBox.TabStop = false;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.labelUserDetails);
-            this.panel1.Controls.Add(this.listBoxDetails);
-            this.panel1.Controls.Add(this.LoggedInUserPictureBox);
-            this.panel1.Location = new System.Drawing.Point(14, 15);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(408, 192);
-            this.panel1.TabIndex = 2;
-            // 
             // labelUserDetails
             // 
             this.labelUserDetails.AutoSize = true;
             this.labelUserDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.labelUserDetails.Location = new System.Drawing.Point(3, 4);
+            this.labelUserDetails.Location = new System.Drawing.Point(17, 15);
             this.labelUserDetails.Name = "labelUserDetails";
             this.labelUserDetails.Size = new System.Drawing.Size(144, 29);
             this.labelUserDetails.TabIndex = 3;
@@ -79,7 +66,7 @@
             // 
             this.listBoxDetails.FormattingEnabled = true;
             this.listBoxDetails.ItemHeight = 20;
-            this.listBoxDetails.Location = new System.Drawing.Point(159, 39);
+            this.listBoxDetails.Location = new System.Drawing.Point(170, 54);
             this.listBoxDetails.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listBoxDetails.Name = "listBoxDetails";
             this.listBoxDetails.Size = new System.Drawing.Size(240, 144);
@@ -188,8 +175,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1282, 884);
+            this.ClientSize = new System.Drawing.Size(1282, 962);
+            this.Controls.Add(this.labelUserDetails);
             this.Controls.Add(this.buttonLogOut);
+            this.Controls.Add(this.LoggedInUserPictureBox);
+            this.Controls.Add(this.listBoxDetails);
             this.Controls.Add(this.buttonPoolMyRide);
             this.Controls.Add(this.buttonFindPlaces);
             this.Controls.Add(this.listBoxFriends);
@@ -198,13 +188,10 @@
             this.Controls.Add(this.listBoxAlbums);
             this.Controls.Add(this.checkBoxPosts);
             this.Controls.Add(this.listBoxPosts);
-            this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.Text = "Amazing FB App :)";
             ((System.ComponentModel.ISupportInitialize)(this.LoggedInUserPictureBox)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,7 +200,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox LoggedInUserPictureBox;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListBox listBoxDetails;
         private System.Windows.Forms.Label labelUserDetails;
         private System.Windows.Forms.ListBox listBoxPosts;

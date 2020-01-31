@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
+using Utils;
 
 namespace MyFacebookApp
 {
@@ -193,10 +194,9 @@ namespace MyFacebookApp
         private void resetFormComponents()
         {
             Control.ControlCollection controls = this.Controls;
-
-            foreach(Control control in controls)
+            foreach (Control control in controls)
             {
-                if(control is ListBox)
+                if (control is ListBox)
                 {
                     ((ListBox)control).Items.Clear();
                 }

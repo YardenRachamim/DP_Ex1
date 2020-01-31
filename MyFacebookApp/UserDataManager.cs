@@ -197,6 +197,7 @@ namespace MyFacebookApp
             }
             set
             {
+                RestartLoggedInUser();
                 m_LoggedInUser = value;
             }
         }
