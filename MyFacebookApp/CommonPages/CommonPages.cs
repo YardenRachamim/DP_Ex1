@@ -23,21 +23,10 @@ namespace MyFacebookApp
                 m_PageDictionary.Add(i_Page, 1);
             }
         }
-
-        private List<KeyValuePair<Page, int>> orderList()
-        {
-            List<KeyValuePair<Page, int>> pageList = m_PageDictionary.ToList();
-            pageList = pageList.OrderByDescending(i => i.Value).ToList();
-            
-            return pageList;
-        }
-
+        
         public IEnumerator<KeyValuePair<Page, int>> GetEnumerator()
         {
-            //List<KeyValuePair<Page, int>> pageList = m_PageDictionary.ToList();
-            //pageList = pageList.OrderByDescending(i => i.Value).ToList();
             return m_PageDictionary.OrderByDescending(i => i.Value).GetEnumerator();
-            //return ((IEnumerable<KeyValuePair<Page, int>>)pageList).GetEnumerator();
         }
         
         IEnumerator IEnumerable.GetEnumerator()
