@@ -1,4 +1,6 @@
-﻿namespace MyFacebookApp
+﻿using System.Windows.Forms;
+
+namespace MyFacebookApp
 {
     partial class PoolMyRideForm
     {
@@ -53,6 +55,7 @@
             this.RideGroups_listBox = new System.Windows.Forms.ListBox();
             this.RideGroups_join = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.IsGetNotified_checkBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.LoggedInUserPictureBox)).BeginInit();
             this.NewRide_panel.SuspendLayout();
             this.JoinRide_panel.SuspendLayout();
@@ -100,6 +103,7 @@
             // 
             // NewRide_panel
             // 
+            this.NewRide_panel.Controls.Add(this.IsGetNotified_checkBox);
             this.NewRide_panel.Controls.Add(this.NewRide_groupLabel);
             this.NewRide_panel.Controls.Add(this.NewRide_groupComboBox);
             this.NewRide_panel.Controls.Add(this.NewRide_toComboBox);
@@ -166,6 +170,9 @@
             this.NewRide_dateTimePicker.Name = "NewRide_dateTimePicker";
             this.NewRide_dateTimePicker.Size = new System.Drawing.Size(277, 26);
             this.NewRide_dateTimePicker.TabIndex = 7;
+            this.NewRide_dateTimePicker.Value = new System.DateTime(2020, 1, 31, 15, 31, 26, 0);
+            this.NewRide_dateTimePicker.Format = DateTimePickerFormat.Custom;
+            this.NewRide_dateTimePicker.CustomFormat = "dd/MM/yyyy  HH:mm";
             // 
             // NewRide_whenLabel
             // 
@@ -287,14 +294,26 @@
             this.RideGroups_join.Text = "Join a Ride Group";
             this.RideGroups_join.UseVisualStyleBackColor = true;
             // 
+            // IsGetNotified_checkBox
+            // 
+            this.IsGetNotified_checkBox.AutoSize = true;
+            this.IsGetNotified_checkBox.Checked = true;
+            this.IsGetNotified_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.IsGetNotified_checkBox.Location = new System.Drawing.Point(172, 226);
+            this.IsGetNotified_checkBox.Name = "IsGetNotified_checkBox";
+            this.IsGetNotified_checkBox.Size = new System.Drawing.Size(179, 24);
+            this.IsGetNotified_checkBox.TabIndex = 13;
+            this.IsGetNotified_checkBox.Text = "I want to get notified";
+            this.IsGetNotified_checkBox.UseVisualStyleBackColor = true;
+            // 
             // PoolMyRideForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1124, 695);
+            this.Controls.Add(this.NewRide_panel);
             this.Controls.Add(this.RideGroups_panel);
             this.Controls.Add(this.JoinRide_panel);
-            this.Controls.Add(this.NewRide_panel);
             this.Controls.Add(this.RideGropButton);
             this.Controls.Add(this.JoinRideButton);
             this.Controls.Add(this.LoggedInUserPictureBox);
@@ -339,5 +358,6 @@
         private System.Windows.Forms.Label RideGroups_label;
         private System.Windows.Forms.Label NewRide_groupLabel;
         private System.Windows.Forms.ComboBox NewRide_groupComboBox;
+        private System.Windows.Forms.CheckBox IsGetNotified_checkBox;
     }
 }

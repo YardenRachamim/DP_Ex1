@@ -60,6 +60,7 @@
     <Compile Include="FindPlaceForm.Designer.cs">
       <DependentUpon>FindPlaceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\CurrentTimeNotifier.cs" />
     <Compile Include="UserManager\IUserDataManager.cs" />
     <Compile Include="PoolMyRide\RideGroup.cs" />
     <Compile Include="Utils\Singleton.cs" />

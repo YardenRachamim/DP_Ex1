@@ -240,7 +240,27 @@ namespace MyFacebookApp
             string groupID = m_UserGroupNameIDMapping[groupName].Id;
             bool isUserDriver = NewRide_isDriverCheckBox.Checked;
 
-            return new NewRide(cityFrom, cityTo, rideDate, groupID, isUserDriver);
+            NewRide newRide = null;
+
+            bool isNotificationRequired = IsGetNotified_checkBox.Checked;
+            if (isNotificationRequired)
+            {
+                int minutesBeforeNotification = 30;
+
+                newRide = new NewRide(cityFrom, cityTo, rideDate, groupID, isUserDriver,
+                    minutesBeforeNotification, rideReminder);
+            }
+            else
+            {
+                newRide = new NewRide(cityFrom, cityTo, rideDate, groupID, isUserDriver);
+            }
+
+            return newRide;
+        }
+
+        private void rideReminder()
+        {
+            MessageBox.Show("Your ride is about to start!");
         }
         #endregion NewRide
 
